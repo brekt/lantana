@@ -3,6 +3,17 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+ul.notes-list {
+	list-style-type: none;
+	height: 100px;
+	position: relative;
+}
+
+ul.notes-list li {
+	position: relative;
+	bottom: 0;
+}
+
 a {
   color: #00B7FF;
 }
