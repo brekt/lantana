@@ -9,9 +9,16 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+h1 {
+	padding: 5px;
+}
+
 div.chord {
 	display: inline-block;
-	padding-right: 20px;
+	padding: 20px 20px 10px 20px;
+	border: solid black 2px;
+	border-radius: 10px;
+	margin: 5px;
 }
 
 ul.notes-list {
@@ -23,6 +30,11 @@ ul.notes-list {
 ul.notes-list li {
 	position: relative;
 	bottom: 0;
+}
+
+input.note-input {
+	border-radius: 2px;
+	height: 1.5em;
 }
 
 a {
