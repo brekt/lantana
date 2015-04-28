@@ -7,16 +7,24 @@
 body {
   padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #FEBE07;
+  background-color: #333333;
 }
 
 h1 {
 	padding: 5px;
+  color: #E40266;
+}
+
+div.chord-wrapper {
+  display: inline-block;
+  padding-bottom: 20px;
 }
 
 div.chord {
 	display: inline-block;
 	padding: 20px 20px 10px 20px;
-	border: solid black 2px;
+	border: solid #E40266 2px;
 	border-radius: 10px;
 	margin: 5px;
 }
@@ -30,13 +38,19 @@ ul.notes-list {
 ul.notes-list li {
 	position: relative;
 	bottom: 0;
+  color: #FEBE07;
 }
 
 input.note-input {
-	border-radius: 2px;
-	height: 1.5em;
+  border: 1px #444444 solid;
+  border-radius: 2px;
+	height: 2em;
+  background-color: #666666;
 }
 
-a {
-  color: #00B7FF;
+.play-buttons {
+  text-align: center;
+  color: orange;
+  border: green;
+  font-size: 0.9em;
 }

@@ -13,18 +13,23 @@
 <body>
 	<h1>Lantana</h1>
 	<div id="progression">
-		<div class="chord">
-			<ul class="notes-list">
-				<li>&nbsp;{{ notes | split:" ":5 }}</li>
-				<li>&nbsp;{{ notes | split:" ":4 }}</li>
-				<li>&nbsp;{{ notes | split:" ":3 }}</li>
-				<li>&nbsp;{{ notes | split:" ":2 }}</li>
-				<li>&nbsp;{{ notes | split:" ":1 }}</li>
-				<li>&nbsp;{{ notes | split:" ":0 }}</li>
-			</ul>
-			<form class="chord-form">
-				<input type="text" class="note-input" placeholder="Enter chord notes separated by spaces, root first." ng-model="notes" autofocus>
-			</form>
+		<div class="chord-wrapper">
+			<div class="chord">
+				<ul class="notes-list">
+					<li>&nbsp;{{ notes | split:" ":5 }}</li>
+					<li>&nbsp;{{ notes | split:" ":4 }}</li>
+					<li>&nbsp;{{ notes | split:" ":3 }}</li>
+					<li>&nbsp;{{ notes | split:" ":2 }}</li>
+					<li>&nbsp;{{ notes | split:" ":1 }}</li>
+					<li>&nbsp;{{ notes | split:" ":0 }}</li>
+				</ul>
+				<form class="chord-form">
+					<input type="text" class="note-input" placeholder="C Eb G Bb D" ng-model="notes" autofocus>
+				</form>
+			</div>
+			<div class="play-buttons">
+				<a class="chord-play">Play Chord</a>
+			</div>
 		</div>
 		<chord-box></chord-box>
 		<chord-box></chord-box>

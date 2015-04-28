@@ -1,13 +1,19 @@
-<div class="chord">
-	<ul class="notes-list">
-		<li>&nbsp;{{ notes | split:" ":5 }}</li>
-		<li>&nbsp;{{ notes | split:" ":4 }}</li>
-		<li>&nbsp;{{ notes | split:" ":3 }}</li>
-		<li>&nbsp;{{ notes | split:" ":2 }}</li>
-		<li>&nbsp;{{ notes | split:" ":1 }}</li>
-		<li>&nbsp;{{ notes | split:" ":0 }}</li>
-	</ul>
-	<form class="chord-form">
-		<input type="text" class="note-input" placeholder="Enter chord notes separated by spaces, root first." ng-model="notes">
-	</form>
+<div class="chord-wrapper">
+	<div class="chord">
+		<ul class="notes-list">
+			<li>&nbsp;{{ notes | split:" ":5 }}</li>
+			<li>&nbsp;{{ notes | split:" ":4 }}</li>
+			<li>&nbsp;{{ notes | split:" ":3 }}</li>
+			<li>&nbsp;{{ notes | split:" ":2 }}</li>
+			<li>&nbsp;{{ notes | split:" ":1 }}</li>
+			<li>&nbsp;{{ notes | split:" ":0 }}</li>
+		</ul>
+		<form class="chord-form">
+			<input type="text" class="note-input" placeholder="C Eb G Bb D" ng-model="notes">
+		</form>
+	</div>
+	<div class="play-buttons">
+		<a class="chord-play">Play Chord</button>&nbsp;&nbsp;&nbsp;
+		<a class="play-to-here">Play to Here</button>
+	</div>
 </div>
