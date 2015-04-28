@@ -38,7 +38,7 @@ ul.notes-list {
 ul.notes-list li {
 	position: relative;
 	bottom: 0;
-  color: #FEBE07;
+  color: #00ff00;
 }
 
 input.note-input {
@@ -51,6 +51,12 @@ input.note-input {
 .play-buttons {
   text-align: center;
   color: orange;
-  border: green;
   font-size: 0.9em;
+  margin-top: 4px;
+}
+
+.play-buttons a {
+  border: #febe07 solid 1px;
+  margin: 0px 4px 0px 4px;
+  padding: 2px;
 }
