@@ -66,4 +66,8 @@ input.note-input {
 #add-chord {
   display: inline-block;
   position: relative;
+  bottom: 100px;
+  border: #febe07 solid 1px;
+  padding: 2px;
+  text-align: center;
 }
