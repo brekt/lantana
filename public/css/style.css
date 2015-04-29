@@ -63,7 +63,7 @@ input.note-input {
   bottom: 0px;
 }
 
-#add-chord {
+#chord-adder {
   display: inline-block;
   position: relative;
   bottom: 100px;
