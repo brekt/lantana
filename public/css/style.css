@@ -59,4 +59,11 @@ input.note-input {
   border: #febe07 solid 1px;
   margin: 0px 4px 0px 4px;
   padding: 2px;
+  position: relative;
+  bottom: 0px;
+}
+
+#add-chord {
+  display: inline-block;
+  position: relative;
 }
