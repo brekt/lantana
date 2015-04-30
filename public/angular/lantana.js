@@ -18,6 +18,7 @@
   });
 
   app.directive('addChord', function($compile) {
+    var counter = 0;
     return {
       restrict: 'E',
       templateUrl: '../angular/addChord.html',
@@ -25,6 +26,7 @@
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
           $element.after(el);
+          counter++;
         };
       }
     };

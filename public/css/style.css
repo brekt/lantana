@@ -16,6 +16,10 @@ h1 {
   color: #E40266;
 }
 
+div#progression {
+  width: 80%;
+}
+
 div.chord-wrapper {
   display: inline-block;
   padding-bottom: 20px;
