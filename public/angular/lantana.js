@@ -24,11 +24,10 @@
       controller: function($scope, $element) {
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
-          $element.prepend(el);
+          $element.after(el);
         };
       }
     };
   });
-
 
 })();
