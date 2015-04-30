@@ -6,12 +6,13 @@
 	<!-- for using CDN
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> -->
 	<script src="../angular/angular.min.js"></script>
+	<script src="../angular/angular-sanitize.min.js"></script>
 	<script src="../angular/lantana.js"></script>
 	<link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 	<h1>Lantana</h1>
-	<div id="progression">
+	<div id="progression" ng-init="">
 		<div class="chord-wrapper">
 			<div class="chord">
 				<ul class="notes-list">
@@ -30,7 +31,8 @@
 				<a class="chord-play">Play Chord</a>
 			</div>
 		</div>
-		<add-chord></add-chord>
+		<span ng-controller="ChordRender"><span ng-repeat="chord in Chords track by $index">{{chord}}</span></span>
+		<add-chord>
 	</div>
 </body>
 </html>

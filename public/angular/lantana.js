@@ -1,5 +1,6 @@
 (function() {
-  var app = angular.module('lantana', []);
+  var app = angular.module('lantana', ['ngSanitize']);
+  var chordBoxes = [];
 
   var counter = 0;
 
@@ -23,17 +24,21 @@
     return {
       restrict: 'E',
       templateUrl: '../angular/addChord.html',
-      controller: function ($scope, $element) {
+      controller: function adder ($scope, $element) {
         $scope.add = function() {
-          var el = $compile('<chord-box></chord-box>')($scope);
-          // $scope.$destroy();
-          // $element.remove('chord-adder');
-          var el2 = $compile('<add-chord></add-chord>')($scope);
-          $element.append(el);
-          $element.append(el2);
+          chordBoxes.push('<chord-box>');
+          console.log(chordBoxes);
         };
       }
     };
+  });
+
+
+  app.controller('ChordRender', function($scope, $sce) {
+    $scope.Chords = chordBoxes;
+    for (var i = 0; i < $scope.Chords.length; i++) {
+      $scope.Chords[i] = $sce.trustAsHtml($scope.Chords[i]);
+    }
   });
 
 })();
