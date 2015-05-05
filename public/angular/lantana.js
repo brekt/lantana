@@ -1,8 +1,9 @@
 (function() {
   var app = angular.module('lantana', []);
 
-  app.filter('split', function() {
+  app.filter('split', function($scope) {
     return function(input, splitChar, splitIndex) {
+      $scope.chordNotes = input;
       if (input) {
         return input.split(splitChar)[splitIndex];
       }
@@ -27,6 +28,18 @@
           var el = $compile('<chord-box></chord-box>')($scope);
           $element.after(el);
           counter++;
+        };
+      }
+    };
+  });
+
+  app.directive('playChord', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/addChord.html',
+      controller: function($scope) {
+        $scope.playChord = function() {
+          console.log($scope.chordNotes);  
         };
       }
     };
