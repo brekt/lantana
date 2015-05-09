@@ -1,11 +1,14 @@
 (function() {
   var app = angular.module('lantana', []);
-  chordNotes = [];
+  var chordNotes = [];
 
   app.filter('split', function() {
     return function(input, splitChar, splitIndex) {
       if (input) {
-        console.log(input);
+        // if (input[splitIndex] && input[splitIndex] != " ") {
+        //   chordNotes.unshift(input[0]);
+        // }
+        chordNotes.unshift(input.split(splitChar)[splitIndex]);
         return input.split(splitChar)[splitIndex];
       }
     };
@@ -16,7 +19,7 @@
   		restrict: 'E',
   		scope: {},
   		templateUrl: '../angular/chordBox.html'
-  	}
+  	};
   });
 
   app.directive('addChord', function($compile) {
@@ -42,7 +45,7 @@
       templateUrl: '../angular/playChord.html',
       controller: function($scope) {
         $scope.playChord = function() {
-          // console.log(chordNotes);  
+          console.log(chordNotes); 
         };
       }
     };
