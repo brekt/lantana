@@ -1,14 +1,25 @@
 (function() {
   var app = angular.module('lantana', []);
-  // var chordNotes = [];
+
+  // constants and global variables
+
+  var progression = [];
+
+  var possibleNotes = ["A", "B", "C", "D", "E", "F", "G", "Ab", "Bb", "Cb", "Db", "Eb", "Fb", "Gb", "A#", "B#", "C#", "D#", "E#", "F#", "G#", "Abb", "Bbb", "Cbb", "Dbb", "Ebb", "Fbb", "Gbb", "AX", "BX", "CX", "DX", "EX", "FX", "GX"];
+
+  
+  // constructor functions
+
+  function GrowSong(chordNotes) {
+    progression.push(chordNotes);
+    console.log(chordNotes);
+  }
+
+  // angular components
 
   app.filter('split', function() {
     return function(input, splitChar, splitIndex) {
       if (input) {
-        // if (input[splitIndex] && input[splitIndex] != " ") {
-        //   chordNotes.unshift(input[0]);
-        // }
-        // chordNotes.unshift(input.split(splitChar)[splitIndex]);
         return input.split(splitChar)[splitIndex];
       }
     };
@@ -43,7 +54,7 @@
       templateUrl: '../angular/playChord.html',
       controller: function($scope) {
         $scope.playChord = function() {
-          console.log($scope.notes); 
+          console.log($scope.notes);
         }
       }
     };
