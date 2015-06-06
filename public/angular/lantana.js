@@ -1,14 +1,9 @@
 (function() {
   var app = angular.module('lantana', []);
-  // var chordNotes = [];
 
   app.filter('split', function() {
     return function(input, splitChar, splitIndex) {
       if (input) {
-        // if (input[splitIndex] && input[splitIndex] != " ") {
-        //   chordNotes.unshift(input[0]);
-        // }
-        // chordNotes.unshift(input.split(splitChar)[splitIndex]);
         return input.split(splitChar)[splitIndex];
       }
     };
