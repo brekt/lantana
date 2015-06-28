@@ -9,9 +9,21 @@ body {
   color: #FEBE07;
   background-color: #333333; }
 
+header {
+  margin: auto;
+  width: 80%; }
+
 h1 {
-  padding: 5px;
   color: #E40266; }
+
+h2 {
+  color: #E40266; }
+
+.hr {
+  height: 2px;
+  width: 90%;
+  background-color: #e40266;
+  margin: 10px 0 50px 0; }
 
 div#progression {
   width: 80%; }
@@ -66,10 +78,10 @@ input.note-input {
   margin-right: 5px; }
 
 .form-wrapper {
-  border: solid 1px #e40266;
+  border: solid 2px #e40266;
   border-radius: 20px;
   margin: auto;
-  padding: 20px 50px 20px 50px;
+  padding: 20px;
   width: 66%; }
 
 .form-wrapper input {
@@ -84,6 +96,12 @@ input.note-input {
   padding: 10px 0 0 10px; }
 
 #submit-buttons {
-  margin: 30px 0 20px 10px; }
+  margin: 30px 0 20px 200px; }
+
+.submit {
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+  padding: 0 20px 0 20px; }
 
 /*# sourceMappingURL=style.css.map */

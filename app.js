@@ -27,6 +27,10 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/public/login.html');
 });
 
+app.get('/signup', function(req, res) {
+    res.sendFile(__dirname + '/public/signup.html');
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
