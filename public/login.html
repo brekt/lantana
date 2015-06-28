@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lantana">
+<head>
+	<title>Log in to Lantana.</title>
+
+	<!-- for using CDN
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script> -->
+
+	<script src="../angular/angular.min.js"></script>
+	<script src="../angular/lantana.js"></script>
+	<link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+	<div class = "form-wrapper">
+		<form id = "signup-form" action="/signup" method="post">
+			<h1>Create an Account</h1>
+			<label for="username">Username:</label>
+			<p><input type="text" id="username" name="username" /></p>
+			<label for="password">Password:</label>
+			<p><input type="password" id="password" name="password" /></p>
+			<label for="confirm-pw" >Confirm password:</label>
+			<p><input type="password" id="confirm-pw" name="confirm-pw" /></p>
+			<label for="email">Email:</label>
+			<p><input type="email" id="email" name="email" /></p>
+			<label for="confirm-em">Confirm email:</label>
+			<p><input type="email" id="confirm-em" name="confirm-em" /></p>
+			<div id="submit-buttons">
+				<button type="submit" class="submit">Log in</button><button type="submit" class="submit">Create account</button>
+			</div>
+		</form>
+	<div>
+</body>
+</html>
