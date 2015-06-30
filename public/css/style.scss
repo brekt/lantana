@@ -4,12 +4,14 @@
   box-sizing: border-box;
 }
 
-$boxBorder: #e40266;
+$magenta: #e40266;
+$orange: #febe07;
+$green: #00ff00;
 
 body {
   padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: #FEBE07;
+  color: $orange;
   background-color: #333333;
 }
 
@@ -19,17 +21,17 @@ header {
 }
 
 h1 {
-  color: #E40266;
+  color: $magenta;
 }
 
 h2 {
-  color: #E40266;
+  color: $magenta;
 }
 
 .hr {
   height: 2px;
   width: 90%;
-  background-color: $boxBorder;
+  background-color: $magenta;
   margin: 10px 0 50px 0;
 }
 
@@ -45,7 +47,7 @@ div.chord-wrapper {
 div.chord {
 	display: inline-block;
 	padding: 20px 20px 10px 20px;
-	border: solid $boxBorder 2px;
+	border: solid $magenta 2px;
 	border-radius: 10px;
 	margin: 5px;
 }
@@ -59,11 +61,11 @@ ul.notes-list {
 ul.notes-list li {
 	position: relative;
 	bottom: 0;
-  color: #00ff00;
+  color: $green;
 }
 
 input.note-input {
-  border: 1px #444444 solid;
+  border: 0px #444444 solid;
   border-radius: 2px;
 	height: 2em;
   background-color: #666666;
@@ -71,13 +73,13 @@ input.note-input {
 
 .play-buttons {
   text-align: center;
-  color: orange;
+  color: $orange;
   font-size: 0.9em;
   margin-top: 4px;
 }
 
 .play-buttons a {
-  border: #febe07 solid 1px;
+  border: $orange solid 1px;
   margin: 0px 4px 0px 4px;
   padding: 2px;
   position: relative;
@@ -88,14 +90,14 @@ input.note-input {
   display: inline-block;
   position: relative;
   bottom: 100px;
-  border: #febe07 solid 1px;
+  border: $orange solid 1px;
   padding: 2px;
   text-align: center;
   margin-right: 5px;
 }
 
 .form-wrapper {
-  border: solid 2px $boxBorder;
+  border: solid 2px $magenta;
   border-radius: 20px;
   margin: auto;
   padding: 20px;
@@ -109,6 +111,8 @@ input.note-input {
   margin: 0 100px 0 0;
   border: 0px;
   border-radius: 5px;
+  background-color: #666666;
+  font-size: 1.25em;
 }
 
 #signup-form p {
@@ -116,13 +120,16 @@ input.note-input {
 }
 
 #submit-buttons {
-  margin: 30px 0 20px 200px;
+  margin: 30px 0 20px 150px;
 }
 
 .submit {
   height: 30px;
-  border: 0;
+  border: 2px solid black;
   border-radius: 5px;
   padding: 0 20px 0 20px;
+  background-color: #333333;
+  font-size: 1.25em;
+  color: $green;
 }
 

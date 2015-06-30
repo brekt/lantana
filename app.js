@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-var level = require('level');
 var db = level('./lantanadb');
 var uuid = require('uuid');
 var secretKey = uuid.v4();
@@ -29,6 +28,22 @@ app.get('/login', function(req, res) {
 
 app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/signup.html');
+});
+
+app.post('/signup', function(req, res) {
+    var newUsername = req.body.username;
+    var newPassword = req.body.password;
+    var newEmail = req.body.email;
+    function makeUser(un, pw, em) {
+        this.joinDate = new Date();
+        this.username = un;
+        this.password = pw;
+        this.email = em;
+    }
+    var user = new makeUser(newUsername, newPassword, newEmail);
+    console.log(user);
+    db.put(user)
+    res.redirect('/');
 });
 
 // catch 404 and forward to error handler
@@ -63,6 +78,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
 
 
 module.exports = app;
