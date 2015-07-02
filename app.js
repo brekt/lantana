@@ -5,13 +5,25 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-var db = level('./lantanadb');
-var uuid = require('uuid');
-var secretKey = uuid.v4();
 
-// view engine setup
+//------------- Mongo
+
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var url = 'mongodb://localhost:27017/lantana';
+var db = MongoClient.connect(url, function(err, database) {
+    assert.equal(null, err);
+    console.log('Connected to Lantana DB.');
+    database.close();
+});
+var dbUsers = db.collection('users');
+
+//-------------- View Engine
+
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+
+//-------------- Middleware
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -20,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
-// ----------- Routing
+//------------- Routing
 
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/public/login.html');
@@ -46,14 +58,14 @@ app.post('/signup', function(req, res) {
     res.redirect('/');
 });
 
+//------------- Error handling
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace
