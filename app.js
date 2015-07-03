@@ -16,7 +16,7 @@ var url = 'mongodb://localhost:27017/lantana';
 MongoClient.connect(url, function(err, database) {
     assert.equal(null, err);
     console.log('Connected to Lantana DB.');
-    database.close();
+    app.set('db', database);
 });
 
 //-------------- View Engine
@@ -39,11 +39,15 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/public/login.html');
 });
 
-app.post('/ligin', function(req, res) {
-    var token = jwt.sign({
-    user.username}, jwtKey);
-    // TODO: ?
-})
+function authenticate(user, pw) {
+    console.log('authenticate called');
+};
+
+// app.post('/login', function(req, res) {
+//     var token = jwt.sign({
+//     user.username}, jwtKey);
+//     // TODO: ?
+// })
 
 app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/signup.html');
@@ -61,6 +65,11 @@ app.post('/signup', function(req, res) {
     }
     var user = new makeUser(newUsername, newPassword, newEmail);
     console.log(user);
+    db = app.get('db');
+    db.collection('users').insert(user, function(err, result) {
+        if (err) throw err;
+        console.log(result);
+    });
 
     res.redirect('/');
 });
