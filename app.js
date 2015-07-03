@@ -5,18 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
+var jwt = require('jsonwebtoken');
+var jwtKey = process.env.LANTANAKEY;
 
 //------------- Mongo
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/lantana';
-var db = MongoClient.connect(url, function(err, database) {
+MongoClient.connect(url, function(err, database) {
     assert.equal(null, err);
     console.log('Connected to Lantana DB.');
     database.close();
 });
-var dbUsers = db.collection('users');
 
 //-------------- View Engine
 
@@ -38,6 +39,12 @@ app.get('/login', function(req, res) {
     res.sendFile(__dirname + '/public/login.html');
 });
 
+app.post('/ligin', function(req, res) {
+    var token = jwt.sign({
+    user.username}, jwtKey);
+    // TODO: ?
+})
+
 app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/signup.html');
 });
@@ -54,7 +61,7 @@ app.post('/signup', function(req, res) {
     }
     var user = new makeUser(newUsername, newPassword, newEmail);
     console.log(user);
-    db.put(user)
+
     res.redirect('/');
 });
 
