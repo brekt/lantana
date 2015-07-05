@@ -55,27 +55,31 @@ app.get('/signup', function(req, res) {
 });
 
 app.post('/signup', function(req, res) {
-    var newUsername = req.body.username;
-    var newPassword = req.body.password;
-    var newEmail = req.body.email;
-    bcrypt.hash(newPassword, 10, function(err, hash) {
-        if (err) throw err;
-        var user = new makeUser(newUsername, hash, newEmail);
-        console.log(user);
-        db = app.get('db');
-        db.collection('users').insert(user, function(err, result) {
+    db = app.get('db');
+    db.collection('users').findOne({username: req.body.username}, function(err, docs) {
+        if (docs)
+    })
+    if (req.body.username && req.body.password && req.body.email) {
+        var newUsername = req.body.username;
+        var newPassword = req.body.password;
+        var newEmail = req.body.email;
+        bcrypt.hash(newPassword, 10, function(err, hash) {
             if (err) throw err;
-            console.log(result);
+            var user = new makeUser(newUsername, hash, newEmail);
+            console.log(user);
+            db = app.get('db');
+            db.collection('users').insert(user, function(err, result) {
+                if (err) throw err;
+                console.log(result);
+            });
+            function makeUser(un, pw, em) {
+                this.joinDate = new Date();
+                this.username = un;
+                this.password = hash;
+                this.email = em;
+            }
         });
-
-        function makeUser(un, pw, em) {
-            this.joinDate = new Date();
-            this.username = un;
-            this.password = hash;
-            this.email = em;
-        }
-    });
-
+    }
     res.redirect('/');
 });
 
