@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
+var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var jwtKey = process.env.LANTANAKEY;
 
@@ -57,18 +58,22 @@ app.post('/signup', function(req, res) {
     var newUsername = req.body.username;
     var newPassword = req.body.password;
     var newEmail = req.body.email;
-    function makeUser(un, pw, em) {
-        this.joinDate = new Date();
-        this.username = un;
-        this.password = pw;
-        this.email = em;
-    }
-    var user = new makeUser(newUsername, newPassword, newEmail);
-    console.log(user);
-    db = app.get('db');
-    db.collection('users').insert(user, function(err, result) {
+    bcrypt.hash(newPassword, 10, function(err, hash) {
         if (err) throw err;
-        console.log(result);
+        var user = new makeUser(newUsername, hash, newEmail);
+        console.log(user);
+        db = app.get('db');
+        db.collection('users').insert(user, function(err, result) {
+            if (err) throw err;
+            console.log(result);
+        });
+
+        function makeUser(un, pw, em) {
+            this.joinDate = new Date();
+            this.username = un;
+            this.password = hash;
+            this.email = em;
+        }
     });
 
     res.redirect('/');
