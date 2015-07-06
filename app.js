@@ -15,9 +15,9 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/lantana';
 MongoClient.connect(url, function(err, database) {
-    assert.equal(null, err);
-    console.log('Connected to Lantana DB.');
-    app.set('db', database);
+  assert.equal(null, err);
+  console.log('Connected to Lantana DB.');
+  app.set('db', database);
 });
 
 //-------------- View Engine
@@ -37,11 +37,11 @@ app.use(express.static('public'));
 //------------- Routing
 
 app.get('/login', function(req, res) {
-    res.sendFile(__dirname + '/public/login.html');
+  res.sendFile(__dirname + '/public/login.html');
 });
 
 function authenticate(user, pw) {
-    console.log('authenticate called');
+  console.log('authenticate called');
 };
 
 // app.post('/login', function(req, res) {
@@ -55,68 +55,68 @@ app.get('/signup', function(req, res) {
 });
 
 app.post('/signup', function(req, res) {
-    db = app.get('db');
-    db.collection('users').findOne({username: req.body.username}, function(err, docs) {
-        if (docs)
-    })
-    if (req.body.username && req.body.password && req.body.email) {
-        var newUsername = req.body.username;
-        var newPassword = req.body.password;
-        var newEmail = req.body.email;
-        bcrypt.hash(newPassword, 10, function(err, hash) {
-            if (err) throw err;
-            var user = new makeUser(newUsername, hash, newEmail);
-            console.log(user);
-            db = app.get('db');
-            db.collection('users').insert(user, function(err, result) {
-                if (err) throw err;
-                console.log(result);
-            });
-            function makeUser(un, pw, em) {
-                this.joinDate = new Date();
-                this.username = un;
-                this.password = hash;
-                this.email = em;
-            }
-        });
+  var newUsername = req.body.username;
+  var newPassword = req.body.password;
+  var newEmail = req.body.email;
+  db = app.get('db');
+  db.collection('users').find({'username': newUsername}, function(err, docs) {
+    if (err) throw err;
+    if (docs.length > 0) {
+      console.log('Username already exists!');
+    // }
+    // else if (req.body.username && req.body.password && req.body.email) {
+    //   bcrypt.hash(newPassword, 10, function(err, hash) {
+    //     if (err) throw err;
+    //     var user = new makeUser(newUsername, hash, newEmail);
+    //     console.log(user);
+    //     db = app.get('db');
+    //     db.collection('users').insert(user, function(err, result) {
+    //       if (err) throw err;
+    //       console.log(result);
+    //     });
+    //     function makeUser(un, pw, em) {
+    //       this.joinDate = new Date();
+    //       this.username = un;
+    //       this.password = hash;
+    //       this.email = em;
+    //     }
+    //   });
+    //   res.redirect('/');
     }
-    res.redirect('/');
+  });   
 });
 
 //------------- Error handling
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        console.log(err);
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+  app.use(function(err, req, res, next) {
+    console.log(err);
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
+  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    console.log(err);
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+  console.log(err);
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
-
-
-
 
 module.exports = app;
