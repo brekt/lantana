@@ -6,7 +6,7 @@
   var chordArray = [];
 
   app.controller('SignupController', function($scope) {
-
+    
   });
 
   app.filter('split', function() {

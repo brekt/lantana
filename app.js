@@ -59,29 +59,29 @@ app.post('/signup', function(req, res) {
   var newPassword = req.body.password;
   var newEmail = req.body.email;
   db = app.get('db');
-  db.collection('users').find({'username': newUsername}, function(err, docs) {
+  db.collection('users').find({'username': newUsername}).toArray(function(err, docs) {
     if (err) throw err;
-    if (docs.length > 0) {
-      console.log('Username already exists!');
-    // }
-    // else if (req.body.username && req.body.password && req.body.email) {
-    //   bcrypt.hash(newPassword, 10, function(err, hash) {
-    //     if (err) throw err;
-    //     var user = new makeUser(newUsername, hash, newEmail);
-    //     console.log(user);
-    //     db = app.get('db');
-    //     db.collection('users').insert(user, function(err, result) {
-    //       if (err) throw err;
-    //       console.log(result);
-    //     });
-    //     function makeUser(un, pw, em) {
-    //       this.joinDate = new Date();
-    //       this.username = un;
-    //       this.password = hash;
-    //       this.email = em;
-    //     }
-    //   });
-    //   res.redirect('/');
+    if (docs.length === 0) {
+      bcrypt.hash(newPassword, 10, function(err, hash) {
+        if (err) throw err;
+        var user = new makeUser(newUsername, hash, newEmail);
+        console.log(user);
+        db = app.get('db');
+        db.collection('users').insert(user, function(err, result) {
+          if (err) throw err;
+          console.log(result);
+        });
+        function makeUser(un, pw, em) {
+          this.joinDate = new Date();
+          this.username = un;
+          this.password = hash;
+          this.email = em;
+        }
+      });
+      res.redirect('/');
+    }
+    else {
+      res.send('Username already exists');
     }
   });   
 });
