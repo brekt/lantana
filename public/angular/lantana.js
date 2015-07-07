@@ -5,6 +5,10 @@
   var chordCounter = 0;
   var chordArray = [];
 
+  app.controller('SignupController', function($scope) {
+
+  });
+
   app.filter('split', function() {
     return function(input, splitChar, splitIndex) {
       if (input) {
