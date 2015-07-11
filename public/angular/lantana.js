@@ -5,8 +5,17 @@
   var chordCounter = 0;
   var chordArray = [];
 
-  app.controller('SignupController', function($scope) {
-    
+  app.controller('SignupController', function($scope, $http) {
+    $scope.doesUserExist = function(username) {
+      $http({
+        method: 'GET',
+        url: 'api/doesuserexist',
+        data: {username: username},
+        headers: {'Content-Type': 'application/json'}
+      }).success(function(data) {
+        console.log(data);
+      });
+    }
   });
 
   app.filter('split', function() {

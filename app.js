@@ -54,6 +54,23 @@ app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/signup.html');
 });
 
+app.get('/api/doesuserexist', function(req, res) {
+  console.log('I\'m hit');
+  var userToCheck = req.body.username;
+  db = app.get('db');
+  db.collection('users').find({'username': userToCheck}).toArray(function(err, docs) {
+    if (err) throw err;
+    if (docs.length > 0) {
+      var userExists = true;
+      res.json(userExists);
+    }
+    else {
+      var userExists = false;
+      res.json(userExists);
+    }
+  });
+});
+
 app.post('/signup', function(req, res) {
   var newUsername = req.body.username;
   var newPassword = req.body.password;
@@ -81,7 +98,8 @@ app.post('/signup', function(req, res) {
       res.redirect('/');
     }
     else {
-      res.send('Username already exists');
+      var userExists = true;
+      res.send(userExists);
     }
   });   
 });
