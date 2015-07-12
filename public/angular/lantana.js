@@ -7,13 +7,16 @@
 
   app.controller('SignupController', function($scope, $http) {
     $scope.doesUserExist = function(username) {
+      console.log(username);
       $http({
-        method: 'GET',
-        url: 'api/doesuserexist',
-        data: {username: username},
-        headers: {'Content-Type': 'application/json'}
+        method: 'POST',
+        url: '/api/doesuserexist',
+        data: {username: username}
       }).success(function(data) {
         console.log(data);
+        if (data === true) {
+          // TODO: change input placeholder to username exists
+        } 
       });
     }
   });

@@ -54,8 +54,8 @@ app.get('/signup', function(req, res) {
     res.sendFile(__dirname + '/public/signup.html');
 });
 
-app.get('/api/doesuserexist', function(req, res) {
-  console.log('I\'m hit');
+app.post('/api/doesuserexist', function(req, res) {
+  console.log(req.body.username);
   var userToCheck = req.body.username;
   db = app.get('db');
   db.collection('users').find({'username': userToCheck}).toArray(function(err, docs) {
