@@ -4,8 +4,10 @@
 
   var chordCounter = 0;
   var chordArray = [];
+  var userExists = false;
 
   app.controller('SignupController', function($scope, $http) {
+    $scope.ph = ' ';
     $scope.doesUserExist = function(username) {
       console.log(username);
       $http({
@@ -15,10 +17,26 @@
       }).success(function(data) {
         console.log(data);
         if (data === true) {
-          // TODO: change input placeholder to username exists
-        } 
+          $scope.username = '';
+          $scope.ph = 'Sorry, that name is taken.';
+        }
       });
-    }
+    };
+  });
+
+  app.directive('ngPlaceholder', function() {
+    return {
+      restrict: 'A',
+      scope: {
+        placeholder: '=ngPlaceholder'
+      },
+      controller: 'SignupController',
+      link: function(scope, elem, attr) {
+        scope.$watch('placeholder', function() {
+          elem[0].placeholder = scope.placeholder;
+        })
+      }
+    };
   });
 
   app.filter('split', function() {
@@ -59,7 +77,7 @@
         $scope.playChord = function() {
           $scope.notesArray = $scope.notes.split(' ');
           console.log($scope.notesArray);
-        }
+        };
       }
     };
   });
