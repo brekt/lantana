@@ -9,6 +9,7 @@
   app.controller('SignupController', function($scope, $http) {
     $scope.ph = ' ';
     $scope.doesUserExist = function(username) {
+      username = username.toLowerCase();
       console.log(username);
       $http({
         method: 'POST',
