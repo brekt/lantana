@@ -20,12 +20,12 @@
 			<h2>Create an Account</h2>
 			<div class="hr">&nbsp;</div>
 			<p><label for="username">Username:</label><input type="text" id="username" name="username" ng-model="username" ng-blur="doesUserExist(username)" ng-placeholder="ph" /></p>
-			<p><label for="password">Password:</label><input type="password" id="password" name="password" /></p>
-			<p><label for="confirm-pw" >Confirm password:</label><input type="password" id="confirm-pw" name="confirm-pw" /></p>
-			<p><label for="email">Email:</label><input type="email" id="email" name="email" /></p>
-			<p><label for="confirm-em">Confirm email:</label><input type="email" id="confirm-em" name="confirm-em" /></p>
+			<p><label for="password">Password:</label><input type="password" id="password" name="password" ng-model="password" /></p>
+			<p><label for="confirm-pw" >Confirm password:</label><input type="password" id="confirm-pw" name="confirm-pw" ng-model="confirmPassword" /></p>
+			<p><label for="email">Email:</label><input type="email" id="email" name="email" ng-model="email" /></p>
+			<p><label for="confirm-em">Confirm email:</label><input type="email" id="confirm-em" name="confirm-em" ng-model="confirmEmail" /></p>
 			<div id="submit-buttons">
-				<button type="submit" class="submit">Submit</button>
+				<button ng-disabled="isFormCompleted()" type="submit" class="submit" ng-model="submit">Submit</button>
 			</div>
 		</form>
 	<div>

@@ -7,7 +7,7 @@
   var userExists = false;
 
   app.controller('SignupController', function($scope, $http) {
-    $scope.ph = ' ';
+    $scope.ph = '';
     $scope.doesUserExist = function(username) {
       username = username.toLowerCase();
       console.log(username);
@@ -21,9 +21,17 @@
           $scope.username = '';
           $scope.ph = 'Sorry, that name is taken.';
         }
+        else {
+          $scope.ph = '';
+        }
       });
     };
-  });
+    $scope.isFormCompleted = function() {
+      if ($scope.username && ($scope.password === $scope.confirmPassword) && ($scope.email === $scope.confirmEmail)) {
+        return false;
+      }
+    };
+});
 
   app.directive('ngPlaceholder', function() {
     return {
