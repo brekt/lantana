@@ -9,14 +9,14 @@
   app.controller('SignupController', function($scope, $http) {
     $scope.ph = '';
     $scope.doesUserExist = function(username) {
-      username = username.toLowerCase();
-      console.log(username);
+      if (username) {
+        username = username.toLowerCase();
+      }
       $http({
         method: 'POST',
         url: '/api/doesuserexist',
         data: {username: username}
       }).success(function(data) {
-        console.log(data);
         if (data === true) {
           $scope.username = '';
           $scope.ph = 'Sorry, that name is taken.';
@@ -26,12 +26,7 @@
         }
       });
     };
-    $scope.isFormCompleted = function() {
-      if ($scope.username && ($scope.password === $scope.confirmPassword) && ($scope.email === $scope.confirmEmail)) {
-        return false;
-      }
-    };
-});
+  });
 
   app.directive('ngPlaceholder', function() {
     return {
