@@ -40,8 +40,28 @@ app.get('/login', function(req, res) {
   res.sendFile(__dirname + '/public/login.html');
 });
 
-function authenticate(user, pw) {
-  console.log('authenticate called');
+app.post('/login', function(req, res) {
+  db = app.get('db');
+  db.collection('users').findOne({'username': req.body.username}, function(err, document) {
+    if (err) throw err;
+    bcrypt.compare(req.body.password, document.password, function(err, match) {
+      if (err) throw err;
+      if (match === true) {
+        res.json({
+          'username': authenticate(document.username),
+          'user': document
+        });
+        res.redirect('/');
+      }
+      else {
+        res.end('Password does not match.');
+      }
+    });
+  });
+});
+
+function authenticate(user) {
+  console.log('Authenticate called with input: {{user}}');
 };
 
 // app.post('/login', function(req, res) {
@@ -51,7 +71,7 @@ function authenticate(user, pw) {
 // })
 
 app.get('/signup', function(req, res) {
-    res.sendFile(__dirname + '/public/signup.html');
+  res.sendFile(__dirname + '/public/signup.html');
 });
 
 app.post('/api/doesuserexist', function(req, res) {
@@ -101,7 +121,7 @@ app.post('/signup', function(req, res) {
       var userExists = true;
       res.send(userExists);
     }
-  });   
+  });
 });
 
 //------------- Error handling
