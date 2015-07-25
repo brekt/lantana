@@ -28,6 +28,19 @@
     };
   });
 
+  app.controller('LoginController', function($scope, $http) {
+    $scope.authenticate = function(username, password) {
+      username = username.toLowerCase();
+      $http({
+        method: 'POST',
+        url: 'api/authenticate',
+        data: {username: username, password: password},
+      }).success(function(data) {
+          console.log(data);
+      });
+    };
+  });
+
   app.directive('ngPlaceholder', function() {
     return {
       restrict: 'A',

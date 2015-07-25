@@ -16,11 +16,11 @@
 		<div class="hr">&nbsp;</div>
 	</header>
 	<div class = "form-wrapper">
-		<form id = "login-form" action="/login" method="post">
+		<form id = "login-form" ng-controller="LoginController" ng-submit="authenticate(username, password)">
 			<h2>Log in</h2>
 			<div class="hr">&nbsp;</div>
-			<p><label for="username">Username:</label><input type="text" id="username" name="username" required /></p>
-			<p><label for="password">Password:</label><input type="password" id="password" name="password" required /></p>
+			<p><label for="username">Username:</label><input type="text" id="username" name="username" ng-model="username" required /></p>
+			<p><label for="password">Password:</label><input type="password" id="password" name="password" ng-model="password" required /></p>
 			<div id="submit-buttons">
 				<button type="submit" class="submit">Submit</button>
 			</div>

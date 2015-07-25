@@ -40,7 +40,7 @@ app.get('/login', function(req, res) {
   res.sendFile(__dirname + '/public/login.html');
 });
 
-app.post('/login', function(req, res) {
+app.post('/login', function(req, res, next) {
   db = app.get('db');
   db.collection('users').findOne({'username': req.body.username}, function(err, document) {
     if (err) throw err;
@@ -51,7 +51,6 @@ app.post('/login', function(req, res) {
           'username': authenticate(document.username),
           'user': document
         });
-        res.redirect('/');
       }
       else {
         res.end('Password does not match.');
@@ -60,9 +59,25 @@ app.post('/login', function(req, res) {
   });
 });
 
-function authenticate(user) {
-  console.log('Authenticate called with input: {{user}}');
-};
+app.post('/api/authenticate', function(req, res) {
+  db = app.get('db');
+  db.collection('users').findOne({'username': req.body.username}, function(err, document) {
+    if (err) throw err;
+    bcrypt.compare(req.body.password, document.password, function(err, match) {
+      if (err) throw err;
+      if (match) {
+        var tokenVer = jwt.verify(document, jwtKey, {iss: 'Lantana'});
+        res.json({
+          tokenVer
+        });
+      }
+      else {
+        res.end('Password does not match.');
+      }
+    });
+  });
+});
+
 
 // app.post('/login', function(req, res) {
 //     var token = jwt.sign({
