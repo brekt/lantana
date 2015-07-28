@@ -6,7 +6,7 @@
   var chordArray = [];
   var userExists = false;
 
-  app.controller('SignupController', function($scope, $http) {
+  app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
     $scope.doesUserExist = function(username) {
       if (username) {
@@ -24,6 +24,20 @@
         else {
           $scope.ph = '';
         }
+      });
+    };
+    $scope.newUser = function(username, password, email) {
+      if (username && password && email) {
+        username = username.toLowerCase();
+      }
+      $http({
+        method: 'POST',
+        url: '/api/signup',
+        data: {'username': username, 'password': password, 'email': email}
+      }).success(function(data) {
+        localStorage.setItem('LantanaKey', data);
+        console.log(localStorage.LantanaKey);
+        $window.location.href = '/';
       });
     };
   });

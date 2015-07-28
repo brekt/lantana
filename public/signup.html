@@ -16,7 +16,7 @@
 		<div class="hr">&nbsp;</div>
 	</header>
 	<div class = "form-wrapper">
-		<form id = "signup-form" action="/signup" method="post" ng-controller="SignupController">
+		<form id = "signup-form" ng-controller="SignupController" ng-submit="newUser(username, password, email)">
 			<h2>Create an Account</h2>
 			<div class="hr">&nbsp;</div>
 			<p><label for="username">Username:</label><input type="text" id="username" name="username" ng-model="username" ng-blur="doesUserExist(username)" ng-placeholder="ph" required></p>

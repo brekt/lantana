@@ -11,13 +11,14 @@ var jwtKey = process.env.LANTANAKEY;
 
 //------------- Mongo
 
+var db;
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/lantana';
 MongoClient.connect(url, function(err, database) {
   assert.equal(null, err);
   console.log('Connected to Lantana DB.');
-  app.set('db', database);
+  db = database;
 });
 
 //-------------- View Engine
@@ -41,7 +42,6 @@ app.get('/login', function(req, res) {
 });
 
 app.post('/login', function(req, res, next) {
-  db = app.get('db');
   db.collection('users').findOne({'username': req.body.username}, function(err, document) {
     if (err) throw err;
     bcrypt.compare(req.body.password, document.password, function(err, match) {
@@ -60,16 +60,12 @@ app.post('/login', function(req, res, next) {
 });
 
 app.post('/api/authenticate', function(req, res) {
-  db = app.get('db');
   db.collection('users').findOne({'username': req.body.username}, function(err, document) {
     if (err) throw err;
     bcrypt.compare(req.body.password, document.password, function(err, match) {
       if (err) throw err;
       if (match) {
-        var tokenVer = jwt.verify(document, jwtKey, {iss: 'Lantana'});
-        res.json({
-          tokenVer
-        });
+        // var tokenVer = jwt.verify(document, jwtKey, {iss: 'Lantana'});
       }
       else {
         res.end('Password does not match.');
@@ -92,7 +88,6 @@ app.get('/signup', function(req, res) {
 app.post('/api/doesuserexist', function(req, res) {
   console.log(req.body.username);
   var userToCheck = req.body.username;
-  db = app.get('db');
   db.collection('users').find({'username': userToCheck}).toArray(function(err, docs) {
     if (err) throw err;
     if (docs.length > 0) {
@@ -106,23 +101,22 @@ app.post('/api/doesuserexist', function(req, res) {
   });
 });
 
-app.post('/signup', function(req, res) {
+app.post('/api/signup', function(req, res) {
+  console.log(req.body.username, req.body.password, req.body.email);
   var newUsername = req.body.username;
   var newPassword = req.body.password;
   var newEmail = req.body.email;
-  db = app.get('db');
   db.collection('users').find({'username': newUsername}).toArray(function(err, docs) {
     if (err) throw err;
     if (docs.length === 0) {
       bcrypt.hash(newPassword, 10, function(err, hash) {
         if (err) throw err;
         var user = new makeUser(newUsername, hash, newEmail);
-        console.log(user);
-        db = app.get('db');
         db.collection('users').insert(user, function(err, result) {
           if (err) throw err;
-          console.log(result);
         });
+        var token = jwt.sign({'user': user.name, 'iss': 'Lantana'}, jwtKey);
+        res.json(token);
         function makeUser(un, pw, em) {
           this.joinDate = new Date();
           this.username = un;
@@ -130,13 +124,13 @@ app.post('/signup', function(req, res) {
           this.email = em;
         }
       });
-      res.redirect('/');
     }
     else {
       var userExists = true;
       res.send(userExists);
     }
   });
+
 });
 
 //------------- Error handling
