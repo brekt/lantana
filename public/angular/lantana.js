@@ -35,8 +35,8 @@
         url: '/api/signup',
         data: {'username': username, 'password': password, 'email': email}
       }).success(function(data) {
-        localStorage.setItem('LantanaKey', data);
-        console.log(localStorage.LantanaKey);
+        localStorage.setItem('LantanaToken', data);
+        console.log(localStorage.LantanaToken);
         $window.location.href = '/';
       });
     };
