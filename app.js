@@ -65,7 +65,7 @@ app.post('/api/authenticate', function(req, res) {
     bcrypt.compare(req.body.password, document.password, function(err, match) {
       if (err) throw err;
       if (match) {
-        // var tokenVer = jwt.verify(document, jwtKey, {iss: 'Lantana'});
+        var tokenToVerify = (req.body && req.body.LantanaToken) || (req.query && req.query.LantanaToken) || req.headers['x-LantanaToken'];
       }
       else {
         res.end('Password does not match.');
@@ -115,7 +115,7 @@ app.post('/api/signup', function(req, res) {
         db.collection('users').insert(user, function(err, result) {
           if (err) throw err;
         });
-        var token = jwt.sign({'user': user.name, 'iss': 'Lantana'}, jwtKey);
+        var token = jwt.sign({'user': user.name, 'iss': 'Lantana', 'expiresInMinutes': 10080}, jwtKey);
         res.json(token);
         function makeUser(un, pw, em) {
           this.joinDate = new Date();
