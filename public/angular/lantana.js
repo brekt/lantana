@@ -3,7 +3,7 @@
   var app = angular.module('lantana', []);
 
   var chordCounter = 0;
-  var chordArray = [];
+  var chords = [];
   var userExists = false;
 
   app.controller('SignupController', function($scope, $http, $window) {
@@ -86,15 +86,17 @@
   	};
   });
 
-  app.directive('addChord', function($compile) {
+  app.directive('addChord', function($compile, $document) {
     return {
       restrict: 'E',
       templateUrl: '../angular/addChord.html',
-      controller: function($scope, $element) {
+      controller: function($scope) {
+        $scope.chords = chords;
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
-          $element.after(el);
-          chordCounter++;
+          $scope.chords.push(el);
+          var progression = $document.find('div');
+          console.log(progression);
         };
       }
     };
