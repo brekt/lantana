@@ -93,7 +93,8 @@
         $scope.chords = [];
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
-          $scope.chords.push(el);
+          var progression = angular.element(document.getElementById('progression'));
+          progression.append(el);
           // var progression = $document.find('div');
           // console.log(progression[1]);
         };
