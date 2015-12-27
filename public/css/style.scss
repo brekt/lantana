@@ -54,6 +54,15 @@ h2 {
   min-width: 128px;
 }
 
+.interface h2 {
+  margin-left: 5px;
+  padding: 0px;
+}
+
+.interface p {
+  margin-left: 5px;
+}
+
 div.chord-wrapper {
   display: inline-block;
   padding-bottom: 20px;
@@ -108,7 +117,7 @@ input.note-input {
   border-radius: 5px;
   padding: 2px;
   text-align: center;
-  margin: 10px;
+  margin-left: 5px;
 }
 
 .form-wrapper {

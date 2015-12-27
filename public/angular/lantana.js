@@ -54,6 +54,10 @@
     };
   });
 
+  app.controller('chordController', function($scope) {
+    console.log($scope.notes);
+  });
+
   app.directive('ngPlaceholder', function() {
     return {
       restrict: 'A',
@@ -90,13 +94,10 @@
       restrict: 'E',
       templateUrl: '../angular/addChord.html',
       controller: function($scope, $compile) {
-        $scope.chords = [];
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
           var progression = angular.element(document.getElementById('progression'));
           progression.append(el);
-          // var progression = $document.find('div');
-          // console.log(progression[1]);
         };
       }
     };

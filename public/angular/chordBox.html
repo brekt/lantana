@@ -9,11 +9,10 @@
 			<li>&nbsp;{{ notes | split:" ":0 }}</li>
 		</ul>
 		<form class="chord-form">
-			<input type="text" class="note-input" ng-model="notes">
+			<input type="text" class="note-input" ng-model="notes" ng-model-controller="chordController">
 		</form>
 	</div>
 	<div class="play-buttons">
-		<play-chord>
-		<a class="play-to-here">Play to Here</button>
+		<play-chord></play-chord>
 	</div>
 </div>
