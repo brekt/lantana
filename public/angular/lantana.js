@@ -111,7 +111,7 @@
         $scope.playChord = function() {
           var chord = $scope.notes.split(' ');
           console.log(chord);
-          soundChord(chord[0], chord[1]);
+          soundChord(chord[0], chord[1], chord[2]);
           // soundChord(root, third, fifth, seventh, ninth, thirteenth);
         };
       }
@@ -231,7 +231,7 @@ function soundChord(note1, note2, note3, note4, note5, note6, duration) {
     case 'B#':
     case 'C':
     case 'Dbb':
-      root = 130.81;
+      third = 130.81;
       break;
     case 'C#':
     case 'Db':
@@ -278,14 +278,75 @@ function soundChord(note1, note2, note3, note4, note5, note6, duration) {
       third = 0;
   }
 
+  switch (note3) {
+    case 'B#':
+    case 'C':
+    case 'Dbb':
+      fifth = 130.81;
+      break;
+    case 'C#':
+    case 'Db':
+      fifth = 138.59;
+      break;
+    case 'CX':
+    case 'D':
+    case 'Ebb':
+      fifth = 146.83;
+      break;
+    case 'D#':
+    case 'Eb':
+      fifth = 155.56;
+      break;
+    case 'DX':
+    case 'E':
+    case 'Fb':
+      fifth = 164.81;
+      break;
+    case 'E#':
+    case 'F':
+    case 'Gbb':
+      fifth = 174.61;
+      break;
+    case 'F#':
+    case 'Gb':
+      fifth = 185.00;
+      break;
+    case 'FX':
+    case 'G':
+    case 'Abb':
+      fifth = 196.00;
+      break;
+    case 'G#':
+    case 'Ab':
+      fifth = 207.65;
+      break;
+    case 'Bbb':
+    case 'A':
+    case 'GX':
+      fifth = 220.00;
+      break;
+    case 'A#':
+    case 'Bb':
+      fifth = 233.08;
+      break;
+    case 'AX':
+    case 'B':
+    case 'Cb':
+      fifth = 246.94;
+      break;
+    default:
+      fifth = 0;
+  }
+
     // root
     osc1.frequency.value = root;
     osc1.start();
-    // osc1.stop(audioContext.currentTime + 2);
     // third
     osc2.frequency.value = third;
     osc2.start();
-    // osc2.stop(audioContext.currentTime + 2);
+    // fifth
+    osc3.frequency.value = fifth;
+    osc3.start();
 
     setTimeout(function() {
       gainNode.gain.value = 0;
