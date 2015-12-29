@@ -109,66 +109,119 @@
       templateUrl: '../angular/playChord.html',
       controller: function($scope) {
         $scope.playChord = function() {
-          $scope.notesArray = $scope.notes.split(' ');
-          console.log($scope.notesArray);
-
-          // code imported from audiotest.html
-
-          var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-          var osc1 = audioContext.createOscillator();
-          var osc2 = audioContext.createOscillator();
-          var osc3 = audioContext.createOscillator();
-          var osc4 = audioContext.createOscillator();
-          var osc5 = audioContext.createOscillator();
-          var osc6 = audioContext.createOscillator();
-
-          var oscArray = [osc1, osc2, osc3, osc4, osc5, osc6];
-
-          osc1.type = 'sine';
-          osc2.type = 'sine';
-          osc3.type = 'sine';
-          osc4.type = 'sine';
-          osc5.type = 'sine';
-          osc6.type = 'sine';
-
-          var gainNode = audioContext.createGain();
-
-          oscArray.forEach(function(osc) {
-            osc.connect(gainNode);
-          });
-
-          gainNode.connect(audioContext.destination);
-
-          gainNode.gain.value = 0.01;
-
-
-          function soundChord(note1, note2, note3, note4, note5, note6, duration) {
-              osc1.frequency.value = note1;
-              osc2.frequency.value = note2;
-              osc3.frequency.value = note3;
-              osc4.frequency.value = note4;
-              osc5.frequency.value = note5;
-              osc6.frequency.value = note6;
-              osc1.start();
-              osc1.stop(audioContext.currentTime + 2);
-              osc2.start();
-              osc2.stop(audioContext.currentTime + 2);
-              osc3.start();
-              osc3.stop(audioContext.currentTime + 2);
-              osc4.start();
-              osc4.stop(audioContext.currentTime + 2);
-              osc5.start();
-              osc5.stop(audioContext.currentTime + 2);
-              osc6.start();
-              osc6.stop(audioContext.currentTime + 2);
-          }
-
-          soundChord(440, 600, 750, 900, 1050, 1300);
-
+          var chord = $scope.notes.split(' ');
+          console.log(chord);
+          soundChord(chord[0]);
+          // soundChord(root, third, fifth, seventh, ninth, thirteenth);
         };
       }
     };
   });
 
 })();
+
+// this function parses the note input, makes the instrument, and plays the chords
+
+function soundChord(note1, note2, note3, note4, note5, note6, duration) {
+
+  var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  var osc1 = audioContext.createOscillator();
+  var osc2 = audioContext.createOscillator();
+  var osc3 = audioContext.createOscillator();
+  var osc4 = audioContext.createOscillator();
+  var osc5 = audioContext.createOscillator();
+  var osc6 = audioContext.createOscillator();
+
+  var oscArray = [osc1, osc2, osc3, osc4, osc5, osc6];
+
+  osc1.type = 'sine';
+  osc2.type = 'sine';
+  osc3.type = 'sine';
+  osc4.type = 'sine';
+  osc5.type = 'sine';
+  osc6.type = 'sine';
+
+  var gainNode = audioContext.createGain();
+
+  oscArray.forEach(function(osc) {
+    osc.connect(gainNode);
+  });
+
+  gainNode.connect(audioContext.destination);
+  gainNode.gain.value = 0.01;
+
+  var root = 0.0;
+  var third = 0.0;
+  var fifth = 0.0;
+  var seventh = 0.0;
+  var ninth = 0.0;
+  var thirteenth = 0.0;
+
+  switch (note1) {
+    case 'G#':
+    case 'Ab':
+      root = 103.83;
+      break;
+    case 'Bbb':
+    case 'A':
+    case 'GX':
+      root = 110.00;
+      break;
+    case 'A#':
+    case 'Bb':
+      root = 116.54;
+      break;
+    case 'AX':
+    case 'B':
+    case 'Cb':
+      root = 123.47;
+      break;
+    case 'B#':
+    case 'C':
+    case 'Dbb':
+      root = 130.81;
+      break;
+    case 'C#':
+    case 'Db':
+      root = 138.59;
+      break;
+    case 'CX':
+    case 'D':
+    case 'Ebb':
+      root = 146.83;
+      break;
+    case 'D#':
+    case 'Eb':
+      root = 155.56;
+      break;
+    case 'DX':
+    case 'E':
+    case 'Fb':
+      root = 164.81;
+      break;
+    case 'E#':
+    case 'F':
+    case 'Gbb':
+      root = 174.61;
+      break;
+    case 'F#':
+    case 'Gb':
+      root = 185.00;
+      break;
+    case 'FX':
+    case 'G':
+    case 'Abb':
+      root = 196.00;
+      break;
+    default:
+      root = 0;
+  }
+
+    osc1.frequency.value = root;
+    osc1.start();
+    osc1.stop(audioContext.currentTime + 2);
+    setTimeout(function() {
+      audioContext.close();
+    }, 2000);
+}
