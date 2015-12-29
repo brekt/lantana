@@ -281,11 +281,15 @@ function soundChord(note1, note2, note3, note4, note5, note6, duration) {
     // root
     osc1.frequency.value = root;
     osc1.start();
-    osc1.stop(audioContext.currentTime + 2);
+    // osc1.stop(audioContext.currentTime + 2);
     // third
     osc2.frequency.value = third;
     osc2.start();
-    osc2.stop(audioContext.currentTime + 2);
+    // osc2.stop(audioContext.currentTime + 2);
+
+    setTimeout(function() {
+      gainNode.gain.value = 0;
+    }, 1900);
 
     setTimeout(function() {
       audioContext.close();
