@@ -111,7 +111,7 @@
         $scope.playChord = function() {
           var chord = $scope.notes.split(' ');
           console.log(chord);
-          soundChord(chord[0]);
+          soundChord(chord[0], chord[1]);
           // soundChord(root, third, fifth, seventh, ninth, thirteenth);
         };
       }
@@ -218,9 +218,75 @@ function soundChord(note1, note2, note3, note4, note5, note6, duration) {
       root = 0;
   }
 
+  switch (note2) {
+    case 'A#':
+    case 'Bb':
+      third = 116.54;
+      break;
+    case 'AX':
+    case 'B':
+    case 'Cb':
+      third = 123.47;
+      break;
+    case 'B#':
+    case 'C':
+    case 'Dbb':
+      root = 130.81;
+      break;
+    case 'C#':
+    case 'Db':
+      third = 138.59;
+      break;
+    case 'CX':
+    case 'D':
+    case 'Ebb':
+      third = 146.83;
+      break;
+    case 'D#':
+    case 'Eb':
+      third = 155.56;
+      break;
+    case 'DX':
+    case 'E':
+    case 'Fb':
+      third = 164.81;
+      break;
+    case 'E#':
+    case 'F':
+    case 'Gbb':
+      third = 174.61;
+      break;
+    case 'F#':
+    case 'Gb':
+      third = 185.00;
+      break;
+    case 'FX':
+    case 'G':
+    case 'Abb':
+      third = 196.00;
+      break;
+    case 'G#':
+    case 'Ab':
+      third = 207.65;
+      break;
+    case 'Bbb':
+    case 'A':
+    case 'GX':
+      third = 220.00;
+      break;
+    default:
+      third = 0;
+  }
+
+    // root
     osc1.frequency.value = root;
     osc1.start();
     osc1.stop(audioContext.currentTime + 2);
+    // third
+    osc2.frequency.value = third;
+    osc2.start();
+    osc2.stop(audioContext.currentTime + 2);
+
     setTimeout(function() {
       audioContext.close();
     }, 2000);
