@@ -4,6 +4,7 @@
 
   var chordCounter = 0;
   var userExists = false;
+  var chordArray = [];
 
   app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
@@ -55,7 +56,7 @@
   });
 
   app.controller('chordController', function($scope) {
-    console.log($scope.notes);
+    console.log('testing');
   });
 
   app.directive('ngPlaceholder', function() {
@@ -98,6 +99,7 @@
           var el = $compile('<chord-box></chord-box>')($scope);
           var progression = angular.element(document.getElementById('progression'));
           progression.append(el);
+          console.log(el);
         };
       }
     };
@@ -119,6 +121,34 @@
   });
 
 })();
+
+// this function
+
+window.onkeyup = function(event) {
+  var key = event.keyCode ? event.keyCode : event.which;
+  if (key === 80) {
+    var chordInputs = document.getElementsByClassName('note-input');
+    var howManyChords = chordInputs.length;
+    var chordCounter = 0;
+    // play first chord immediately
+    var chordString = chordInputs[0]['value'];
+    var noteArray = chordString.split(' ');
+    soundChord(noteArray[0], noteArray[1], noteArray[2]);
+    chordCounter++;
+    // then play the the other chords at tempo
+    var delay = 2000;
+    var playIntervalID = window.setInterval(playChords, delay);
+    function playChords() {
+      var chordString = chordInputs[chordCounter]['value'];
+      var noteArray = chordString.split(' ');
+      soundChord(noteArray[0], noteArray[1], noteArray[2]);
+      chordCounter++;
+      if (chordCounter === howManyChords) {
+        clearInterval(playIntervalID);
+      }
+    }
+  }
+}
 
 // this function parses the note input, makes the instrument, and plays the chords
 
@@ -149,7 +179,7 @@ function soundChord(note1, note2, note3, note4, note5, note6, duration) {
   });
 
   gainNode.connect(audioContext.destination);
-  gainNode.gain.value = 0.01;
+  gainNode.gain.value = 0.05;
 
   var root = 0.0;
   var third = 0.0;
