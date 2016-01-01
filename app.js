@@ -41,45 +41,30 @@ app.get('/login', function(req, res) {
   res.sendFile(__dirname + '/public/login.html');
 });
 
-app.post('/login', function(req, res, next) {
+app.post('/api/login', function(req, res, next) {
   db.collection('users').findOne({'username': req.body.username}, function(err, document) {
     if (err) throw err;
     bcrypt.compare(req.body.password, document.password, function(err, match) {
-      if (err) throw err;
-      if (match === true) {
-        res.json({
-          'username': authenticate(document.username),
-          'user': document
+      if (err) {
+        throw err;
+      } else if (match === true) {
+        var clientToken = req.body.token;
+        jwt.verify(clientToken, jwtKey, function(err, decoded) {
+          if (err) {
+            throw err;
+          } else {
+            console.log('Decoded token: ' + decoded);
+            res.json({"loginStatus" : "success"});
+          }
         });
-      }
-      else {
-        res.end('Password does not match.');
-      }
-    });
-  });
-});
-
-app.post('/api/authenticate', function(req, res) {
-  db.collection('users').findOne({'username': req.body.username}, function(err, document) {
-    if (err) throw err;
-    bcrypt.compare(req.body.password, document.password, function(err, match) {
-      if (err) throw err;
-      if (match) {
-        var tokenToVerify = (req.body && req.body.LantanaToken) || (req.query && req.query.LantanaToken) || req.headers['x-LantanaToken'];
-      }
-      else {
-        res.end('Password does not match.');
+      } else if (match === false) {
+        res.json({"loginStatus" : "Password is incorrect."});
+      } else {
+        res.json({"loginStatus" : "An unknown error occured."});
       }
     });
   });
 });
-
-
-// app.post('/login', function(req, res) {
-//     var token = jwt.sign({
-//     user.username}, jwtKey);
-//     // TODO: ?
-// })
 
 app.get('/signup', function(req, res) {
   res.sendFile(__dirname + '/public/signup.html');
@@ -107,22 +92,25 @@ app.post('/api/signup', function(req, res) {
   var newPassword = req.body.password;
   var newEmail = req.body.email;
   db.collection('users').find({'username': newUsername}).toArray(function(err, docs) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     if (docs.length === 0) {
       bcrypt.hash(newPassword, 10, function(err, hash) {
-        if (err) throw err;
-        var user = new makeUser(newUsername, hash, newEmail);
+        if (err) {
+          throw err;
+        }
+        var user = {
+          joinDate: new Date(),
+          username: newUsername,
+          password: hash,
+          email: newEmail
+        };
         db.collection('users').insert(user, function(err, result) {
           if (err) throw err;
         });
-        var token = jwt.sign({'user': user.name, 'iss': 'Lantana', 'expiresInMinutes': 10080}, jwtKey);
+        var token = jwt.sign({'user': user.username, 'iss': 'Lantana', 'expiresInMinutes': 10080}, jwtKey);
         res.json(token);
-        function makeUser(un, pw, em) {
-          this.joinDate = new Date();
-          this.username = un;
-          this.password = hash;
-          this.email = em;
-        }
       });
     }
     else {
@@ -130,7 +118,6 @@ app.post('/api/signup', function(req, res) {
       res.send(userExists);
     }
   });
-
 });
 
 //------------- Error handling

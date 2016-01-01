@@ -19,14 +19,24 @@
 		<form id = "signup-form" ng-controller="SignupController" ng-submit="newUser(username, password, email)">
 			<h2>Create an Account</h2>
 			<div class="hr">&nbsp;</div>
-			<p><label for="username">Username:</label><input type="text" id="username" name="username" ng-model="username" ng-blur="doesUserExist(username)" ng-placeholder="ph" required></p>
-			<p><label for="password">Password:</label><input type="password" id="password" name="password" ng-model="password" required></p>
-			<p><label for="confirm-pw" >Confirm password:</label><input type="password" id="confirm-pw" name="confirmPassword" ng-model="confirmPassword"></p>
-			<p><label for="email">Email:</label><input type="email" id="email" name="email" ng-model="email"></p>
-			<p><label for="confirm-em">Confirm email:</label><input type="email" id="confirm-em" name="confirmEmail" ng-model="confirmEmail"></p>
-			<div id="submit-buttons">
-				<button type="submit" class="submit" ng-model="submit">Submit</button>
-			</div>
+			<p>
+				<label for="username">Username:</label><input type="text" id="username" name="username" ng-model="username" ng-blur="doesUserExist(username)" ng-placeholder="ph" required>
+			</p>
+			<p>
+				<label for="password">Password:</label><input type="password" id="password" name="password" ng-model="password" required>
+			</p>
+			<p>
+				<label for="confirm-pw" >Confirm password:</label><input type="password" id="confirm-pw" name="confirmPassword" ng-model="confirmPassword">
+			</p>
+			<p>
+				<label for="email">Email:</label><input type="email" id="email" name="email" ng-model="email">
+			</p>
+			<p>
+				<label for="confirm-em">Confirm email:</label><input type="email" id="confirm-em" name="confirmEmail" ng-model="confirmEmail">
+			</p>
+			<p>
+				<button type="submit" class="submit-button" ng-model="submit">Submit</button>
+			</p>
 		</form>
 	<div>
 </body>

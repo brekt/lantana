@@ -2,10 +2,6 @@
 
   var app = angular.module('lantana', []);
 
-  var chordCounter = 0;
-  var userExists = false;
-  var chordArray = [];
-
   app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
     $scope.doesUserExist = function(username) {
@@ -42,15 +38,25 @@
     };
   });
 
-  app.controller('LoginController', function($scope, $http) {
-    $scope.authenticate = function(username, password) {
+  app.controller('LoginController', function($scope, $http, $window) {
+    $scope.phlogin = '';
+    $scope.login = function(username, password, token) {
+      var token = localStorage.getItem('LantanaToken');
+      console.log('token: ' + token);
       username = username.toLowerCase();
       $http({
         method: 'POST',
-        url: 'api/authenticate',
-        data: {username: username, password: password},
+        url: 'api/login',
+        data: {username: username, password: password, token: token},
       }).success(function(data) {
-          console.log(data);
+          console.log(data.loginStatus);
+          if (data.loginStatus === 'success') {
+            $window.location.href = '/';
+          } else {
+            var loginPassword = document.getElementById('password');
+            $scope.password = '';
+            $scope.phlogin = data.loginStatus;
+          }
       });
     };
   });
@@ -149,6 +155,8 @@ window.onkeyup = function(event) {
     }
   }
 }
+
+
 
 // this function parses the note input, makes the instrument, and plays the chords
 

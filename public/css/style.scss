@@ -125,12 +125,12 @@ input.note-input {
   border-radius: 20px;
   margin: auto;
   padding: 20px;
-  width: 66%;
+  min-width: 66%;
 }
 
 .form-wrapper input {
   height: 30px;
-  width: 66%;
+  min-width: 66%;
   float: right;
   margin: 0 100px 0 0;
   border: 0px;
@@ -139,15 +139,29 @@ input.note-input {
   font-size: 1.25em;
 }
 
+#login-form {
+}
+
+#login-form p {
+  margin-bottom: 20px;
+  min-width: 75%;
+}
+
+#login-form label {
+  vertical-align: top;
+}
+#login-form input {
+  width: 60%;
+  vertical-align: top;
+}
+
 #signup-form p {
+  min-width: 600px;
   padding: 10px 0 0 10px;
 }
 
-#submit-buttons {
-  margin: 30px 0 20px 150px;
-}
-
-.submit {
+.submit-button {
+  margin: 5% 0 0 47%;
   height: 30px;
   border: 2px solid black;
   border-radius: 5px;
