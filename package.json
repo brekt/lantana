@@ -1,9 +1,6 @@
 {
   "name": "lantana",
   "version": "0.0.0",
-  "engines": {
-    "node": "^5.0.0"
-  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
