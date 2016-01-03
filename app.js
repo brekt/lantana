@@ -120,6 +120,10 @@ app.post('/api/signup', function(req, res) {
   });
 });
 
+app.post('/api/savesong', function(req, res) {
+  console.log(req.body.song);
+});
+
 //------------- Error handling
 
 // catch 404 and forward to error handler

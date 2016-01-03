@@ -120,6 +120,15 @@ input.note-input {
   margin-left: 5px;
 }
 
+.save-song {
+  display: inline-block;
+  border: $orange solid 1px;
+  border-radius: 5px;
+  padding: 2px;
+  text-align: center;
+  margin-left: 10px;
+}
+
 .form-wrapper {
   border: solid 2px $magenta;
   border-radius: 20px;

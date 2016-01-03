@@ -1,7 +1,8 @@
+var hotKeysOn = true;
+
 (function() {
 
   var app = angular.module('lantana', []);
-  var hotKeysOn = false;
 
   app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
@@ -51,6 +52,7 @@
         data: {username: username, password: password, token: token},
       }).success(function(data) {
           if (data.loginStatus === 'success') {
+            $scope.loggedInUser = username;
             hotKeysOn = true;
             $window.location.href = '/';
           } else {
@@ -127,33 +129,63 @@
     };
   });
 
+  app.directive('saveSong', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/saveSong.html',
+      controller: function($scope, $http) {
+        $scope.saveSong = function() {
+          var song = {
+            author: $scope.loggedInUser,
+            name: '',
+            chords: [],
+            tempo: 80
+          };
+          var chordInputs = document.getElementsByClassName('note-input');
+          for (var i = 0; i < chordInputs.length; i++) {
+            var chordString = chordInputs[i]['value'];
+            var noteArray = chordString.split(' ');
+            song.chords.push(noteArray);
+          }
+          console.log(song);
+          $http({
+            method: 'POST',
+            url: '/api/savesong',
+            data: song
+          }).success(function(data) {
+            console.log(data);
+          });
+        }
+      }
+    }
+  });
+
 })();
+
 
 // this function
 
 window.onkeyup = function(event) {
-  if (hotKeysOn === true) {
-    var key = event.keyCode ? event.keyCode : event.which;
-    if (key === 80) {
-      var chordInputs = document.getElementsByClassName('note-input');
-      var howManyChords = chordInputs.length;
-      var chordCounter = 0;
-      // play first chord immediately
-      var chordString = chordInputs[0]['value'];
+  var key = event.keyCode ? event.keyCode : event.which;
+  if (key === 80 && hotKeysOn) {
+    var chordInputs = document.getElementsByClassName('note-input');
+    var howManyChords = chordInputs.length;
+    var chordCounter = 0;
+    // play first chord immediately
+    var chordString = chordInputs[0]['value'];
+    var noteArray = chordString.split(' ');
+    soundChord(noteArray[0], noteArray[1], noteArray[2]);
+    chordCounter++;
+    // then play the the other chords at tempo
+    var delay = 2000;
+    var playIntervalID = window.setInterval(playChords, delay);
+    function playChords() {
+      var chordString = chordInputs[chordCounter]['value'];
       var noteArray = chordString.split(' ');
       soundChord(noteArray[0], noteArray[1], noteArray[2]);
       chordCounter++;
-      // then play the the other chords at tempo
-      var delay = 2000;
-      var playIntervalID = window.setInterval(playChords, delay);
-      function playChords() {
-        var chordString = chordInputs[chordCounter]['value'];
-        var noteArray = chordString.split(' ');
-        soundChord(noteArray[0], noteArray[1], noteArray[2]);
-        chordCounter++;
-        if (chordCounter === howManyChords) {
-          clearInterval(playIntervalID);
-        }
+      if (chordCounter === howManyChords) {
+        clearInterval(playIntervalID);
       }
     }
   }

@@ -98,6 +98,14 @@ input.note-input {
   text-align: center;
   margin-left: 5px; }
 
+.save-song {
+  display: inline-block;
+  border: #febe07 solid 1px;
+  border-radius: 5px;
+  padding: 2px;
+  text-align: center;
+  margin-left: 10px; }
+
 .form-wrapper {
   border: solid 2px #e40266;
   border-radius: 20px;
