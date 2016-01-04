@@ -43,7 +43,9 @@ app.get('/login', function(req, res) {
 
 app.post('/api/login', function(req, res, next) {
   db.collection('users').findOne({'username': req.body.username}, function(err, document) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     bcrypt.compare(req.body.password, document.password, function(err, match) {
       if (err) {
         throw err;
@@ -121,7 +123,15 @@ app.post('/api/signup', function(req, res) {
 });
 
 app.post('/api/savesong', function(req, res) {
-  console.log(req.body.song);
+  var song = req.body.data;
+  console.log(song);
+  db.collection('songs').insertOne({'song': song}, function(err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log('Result: ' + result);
+    res.json(result);
+  });
 });
 
 //------------- Error handling

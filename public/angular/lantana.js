@@ -137,7 +137,7 @@ var hotKeysOn = true;
         $scope.saveSong = function() {
           var song = {
             author: $scope.loggedInUser,
-            name: '',
+            name: 'my song',
             chords: [],
             tempo: 80
           };
