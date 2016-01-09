@@ -1,8 +1,12 @@
 var hotKeysOn = true;
+var loggedInUser = null;
 
 (function() {
 
   var app = angular.module('lantana', []);
+
+  app.value('hotKeysOn', true);
+  app.value('loggedInUser', null);
 
   app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
@@ -44,21 +48,22 @@ var hotKeysOn = true;
     $scope.phlogin = '';
     $scope.login = function(username, password, token) {
       var token = localStorage.getItem('LantanaToken');
+      loggedInUser = username;
+      console.log(loggedInUser);
       console.log('token: ' + token);
-      username = username.toLowerCase();
       $http({
         method: 'POST',
         url: 'api/login',
         data: {username: username, password: password, token: token},
-      }).success(function(data) {
-          if (data.loginStatus === 'success') {
-            $scope.loggedInUser = username;
+      }).success(function(response) {
+          if (response.loginStatus === 'success') {
             hotKeysOn = true;
             $window.location.href = '/';
           } else {
             var loginPassword = document.getElementById('password');
             $scope.password = '';
             $scope.phlogin = data.loginStatus;
+            loggedInUser = null;
           }
       });
     };
@@ -133,32 +138,47 @@ var hotKeysOn = true;
     return {
       restrict: 'E',
       templateUrl: '../angular/saveSong.html',
-      controller: function($scope, $http) {
+      controller: function($scope, $http, $window) {
         $scope.saveSong = function() {
-          var song = {
-            author: $scope.loggedInUser,
-            name: 'my song',
-            chords: [],
-            tempo: 80
-          };
-          var chordInputs = document.getElementsByClassName('note-input');
-          for (var i = 0; i < chordInputs.length; i++) {
-            var chordString = chordInputs[i]['value'];
-            var noteArray = chordString.split(' ');
-            song.chords.push(noteArray);
+          console.log(loggedInUser);
+          if (loggedInUser === null) {
+            $window.location.href = '/login';
+          } else {
+            var song = {
+              author: loggedInUser,
+              name: 'my song',
+              chords: [],
+              tempo: 80
+            };
+            var chordInputs = document.getElementsByClassName('note-input');
+            for (var i = 0; i < chordInputs.length; i++) {
+              var chordString = chordInputs[i]['value'];
+              var noteArray = chordString.split(' ');
+              song.chords.push(noteArray);
+            }
+            console.log(song);
+            $http({
+              method: 'POST',
+              url: 'api/savesong',
+              data: song
+            }).success(function(response) {
+              console.log(response);
+            });
           }
-          console.log(song);
-          $http({
-            method: 'POST',
-            url: '/api/savesong',
-            data: song
-          }).success(function(data) {
-            console.log(data);
-          });
         }
       }
     }
   });
+
+  app.directive('songModal', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/songmodal.html',
+      controller: function($rootScope) {
+
+      }
+    }
+  })
 
 })();
 

@@ -123,7 +123,7 @@ app.post('/api/signup', function(req, res) {
 });
 
 app.post('/api/savesong', function(req, res) {
-  var song = req.body.data;
+  var song = req.body;
   console.log(song);
   db.collection('songs').insertOne({'song': song}, function(err, result) {
     if (err) {
