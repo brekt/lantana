@@ -1,12 +1,8 @@
 var hotKeysOn = true;
-var loggedInUser = null;
 
 (function() {
 
   var app = angular.module('lantana', []);
-
-  app.value('hotKeysOn', true);
-  app.value('loggedInUser', null);
 
   app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
@@ -48,8 +44,8 @@ var loggedInUser = null;
     $scope.phlogin = '';
     $scope.login = function(username, password, token) {
       var token = localStorage.getItem('LantanaToken');
-      loggedInUser = username;
-      console.log(loggedInUser);
+      $scope.loggedInUser = username;
+      console.log($scope.loggedInUser);
       console.log('token: ' + token);
       $http({
         method: 'POST',
@@ -63,14 +59,14 @@ var loggedInUser = null;
             var loginPassword = document.getElementById('password');
             $scope.password = '';
             $scope.phlogin = data.loginStatus;
-            loggedInUser = null;
+            $scope.loggedInUser = null;
           }
       });
     };
   });
 
-  app.controller('chordController', function($scope) {
-    console.log('testing');
+  app.factory('UserFactory', function() {
+
   });
 
   app.directive('ngPlaceholder', function() {
@@ -138,14 +134,18 @@ var loggedInUser = null;
     return {
       restrict: 'E',
       templateUrl: '../angular/saveSong.html',
-      controller: function($scope, $http, $window) {
+      controller: function($scope, $http, $window, $compile) {
         $scope.saveSong = function() {
-          console.log(loggedInUser);
-          if (loggedInUser === null) {
-            $window.location.href = '/login';
+          console.log($scope.loggedInUser);
+          if ($scope.loggedInUser === null) {
+            var progression = angular.element(document.querySelector('progression'));
+            progression.detach();
+            var top = angular.element(document.querySelector('top-of-page'));
+            var el = $compile(<login></login>);
+            top.after(el);
           } else {
             var song = {
-              author: loggedInUser,
+              author: $scope.loggedInUser,
               name: 'my song',
               chords: [],
               tempo: 80
@@ -178,7 +178,7 @@ var loggedInUser = null;
 
       }
     }
-  })
+  });
 
 })();
 

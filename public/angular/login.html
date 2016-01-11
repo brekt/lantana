@@ -1,0 +1,17 @@
+<div class = "form-wrapper" id="login-form">
+	<form ng-controller="LoginController" ng-submit="login(username, password)">
+		<h2>Log in</h2>
+		<div class="hr">&nbsp;</div>
+			<p>
+				<label for="username">Username:</label>
+				<input type="text" id="username" name="username" ng-model="username" required>
+			</p>
+			<p>
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" ng-model="password" ng-placeholder="phlogin" required>
+			</p>
+		<p>
+			<button type="submit" class="submit-button">Submit</button>
+		</p>
+	</form>
+</div>
