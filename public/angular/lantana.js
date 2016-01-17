@@ -136,12 +136,13 @@ var hotKeysOn = true;
       templateUrl: '../angular/saveSong.html',
       controller: function($scope, $http, $window, $compile) {
         $scope.saveSong = function() {
-          console.log($scope.loggedInUser);
-          if ($scope.loggedInUser === null) {
-            var progression = angular.element(document.querySelector('progression'));
+          console.log('$scope.loggedInUser: ' + $scope.loggedInUser);
+          if (!$scope.loggedInUser) {
+            var progression = angular.element(document.querySelector('#progression'));
+            console.log('progression: ', progression);
             progression.detach();
             var top = angular.element(document.querySelector('top-of-page'));
-            var el = $compile(<login></login>);
+            var el = $compile('<login></login>');
             top.after(el);
           } else {
             var song = {
