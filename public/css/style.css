@@ -106,6 +106,20 @@ input.note-input {
   text-align: center;
   margin-left: 10px; }
 
+.song-name-form {
+  width: 300px;
+  min-width: 300px;
+  margin: 0 auto;
+  margin-bottom: 50px; }
+
+#song-name-input {
+  margin-left: 10px;
+  border: 0px #444444 solid;
+  border-radius: 2px;
+  height: 2em;
+  background-color: #666666;
+  color: #00ff00; }
+
 .form-wrapper {
   border: solid 2px #e40266;
   border-radius: 20px;
