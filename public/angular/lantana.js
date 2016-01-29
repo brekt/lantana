@@ -133,7 +133,7 @@ var hotKeysOn = true;
   app.directive('saveSong', function() {
     return {
       restrict: 'E',
-      templateUrl: '../angular/saveSong.html',
+      templateUrl: '../angular/savesong.html',
       controller: function($scope, $http, $window, $compile) {
         $scope.saveSong = function() {
           console.log('$scope.loggedInUser: ' + $scope.loggedInUser);
@@ -175,8 +175,13 @@ var hotKeysOn = true;
     return {
       restrict: 'E',
       templateUrl: '../angular/songname.html',
-      controller: function($rootScope) {
-
+      controller: function($scope) {
+        $scope.songName = 'Song Name';
+        $scope.addQuotes = function() {
+          if ($scope.songName.charAt(0) != '"' && $scope.songName.charAt(-1) != '"') {
+            $scope.songName = '"' + $scope.songName + '"';
+          }
+        }
       }
     }
   });

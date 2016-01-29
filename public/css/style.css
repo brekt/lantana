@@ -13,10 +13,27 @@ header {
   margin: auto;
   width: 80%; }
 
-h1 {
+.page-title {
   color: #e40266;
   padding: 10px;
-  margin: 0px; }
+  margin: 0px;
+  display: inline-block; }
+
+.song-name {
+  text-align: center;
+  width: 25%;
+  margin: 0 auto;
+  margin-left: 200px;
+  border-radius: 2px;
+  resize: none;
+  border: none;
+  height: 2em;
+  color: #e40266;
+  background-color: #333333; }
+
+.song-name:focus {
+  outline: none;
+  background-color: #666666; }
 
 h2 {
   color: #e40266;
@@ -105,20 +122,6 @@ input.note-input {
   padding: 2px;
   text-align: center;
   margin-left: 10px; }
-
-.song-name-form {
-  width: 300px;
-  min-width: 300px;
-  margin: 0 auto;
-  margin-bottom: 50px; }
-
-#song-name-input {
-  margin-left: 10px;
-  border: 0px #444444 solid;
-  border-radius: 2px;
-  height: 2em;
-  background-color: #666666;
-  color: #00ff00; }
 
 .form-wrapper {
   border: solid 2px #e40266;
