@@ -182,6 +182,11 @@ var hotKeysOn = true;
             $scope.songName = '"' + $scope.songName + '"';
           }
         }
+        $scope.stripQuotes = function() {
+          var str = $scope.songName;
+          $scope.songName = str.slice(1, str.length - 1);
+          console.log(str);
+        }
       }
     }
   });
