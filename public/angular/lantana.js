@@ -96,14 +96,14 @@ var hotKeysOn = true;
   	return {
   		restrict: 'E',
   		scope: {},
-  		templateUrl: '../angular/chordBox.html'
+  		templateUrl: '../angular/chordbox.html'
   	};
   });
 
   app.directive('addChord', function($compile, $document) {
     return {
       restrict: 'E',
-      templateUrl: '../angular/addChord.html',
+      templateUrl: '../angular/addchord.html',
       controller: function($scope, $compile) {
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
@@ -118,7 +118,7 @@ var hotKeysOn = true;
   app.directive('playChord', function() {
     return {
       restrict: 'E',
-      templateUrl: '../angular/playChord.html',
+      templateUrl: '../angular/playchord.html',
       controller: function($scope) {
         $scope.playChord = function() {
           var chord = $scope.notes.split(' ');
@@ -171,10 +171,10 @@ var hotKeysOn = true;
     }
   });
 
-  app.directive('songModal', function() {
+  app.directive('songName', function() {
     return {
       restrict: 'E',
-      templateUrl: '../angular/songmodal.html',
+      templateUrl: '../angular/songname.html',
       controller: function($rootScope) {
 
       }
