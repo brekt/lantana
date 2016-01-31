@@ -7,12 +7,14 @@
 $magenta: #e40266;
 $orange: #febe07;
 $green: #00ff00;
+$bodygray: #333333;
+$inputgray: #666666;
 
 body {
   padding: 2%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: $orange;
-  background-color: #333333;
+  background-color: $bodygray;
 }
 
 header {
@@ -20,10 +22,40 @@ header {
   width: 80%;
 }
 
-h1 {
+.page-title {
   color: $magenta;
   padding: 10px;
   margin: 0px;
+  display: inline-block;
+}
+
+.song-name {
+  text-align: center;
+  width: 25%;
+  margin: 0 auto;
+  margin-left: 200px;
+  margin-top: 20px;
+  border-radius: 2px;
+  resize: none;
+  border: none;
+  height: 2em;
+  color: $magenta;
+  background-color: $bodygray;
+  font-size: 1.25em;
+}
+
+.song-name:focus {
+  outline: none;
+  background-color: $inputgray;
+}
+
+.user-nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: $orange;
+  font-size: 1em;
+  margin: 20px 0 0 20px;
+  float: right;
 }
 
 h2 {
@@ -92,7 +124,7 @@ input.note-input {
   border: 0px #444444 solid;
   border-radius: 2px;
 	height: 2em;
-  background-color: #666666;
+  background-color: $inputgray;
 }
 
 .play-buttons {
@@ -144,11 +176,12 @@ input.note-input {
   margin: 0 100px 0 0;
   border: 0px;
   border-radius: 5px;
-  background-color: #666666;
+  background-color: $inputgray;
   font-size: 1.25em;
 }
 
-#login-form {
+login {
+  display: none;
 }
 
 #login-form p {
@@ -175,7 +208,7 @@ input.note-input {
   border: 2px solid black;
   border-radius: 5px;
   padding: 0 20px 0 20px;
-  background-color: #333333;
+  background-color: $bodygray;
   font-size: 1.25em;
   color: $green;
 }

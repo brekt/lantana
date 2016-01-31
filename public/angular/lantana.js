@@ -1,12 +1,8 @@
 var hotKeysOn = true;
-var loggedInUser = null;
 
 (function() {
 
   var app = angular.module('lantana', []);
-
-  app.value('hotKeysOn', true);
-  app.value('loggedInUser', null);
 
   app.controller('SignupController', function($scope, $http, $window) {
     $scope.ph = '';
@@ -48,8 +44,8 @@ var loggedInUser = null;
     $scope.phlogin = '';
     $scope.login = function(username, password, token) {
       var token = localStorage.getItem('LantanaToken');
-      loggedInUser = username;
-      console.log(loggedInUser);
+      $scope.loggedInUser = username;
+      console.log($scope.loggedInUser);
       console.log('token: ' + token);
       $http({
         method: 'POST',
@@ -63,14 +59,10 @@ var loggedInUser = null;
             var loginPassword = document.getElementById('password');
             $scope.password = '';
             $scope.phlogin = data.loginStatus;
-            loggedInUser = null;
+            $scope.loggedInUser = null;
           }
       });
     };
-  });
-
-  app.controller('chordController', function($scope) {
-    console.log('testing');
   });
 
   app.directive('ngPlaceholder', function() {
@@ -100,14 +92,14 @@ var loggedInUser = null;
   	return {
   		restrict: 'E',
   		scope: {},
-  		templateUrl: '../angular/chordBox.html'
+  		templateUrl: '../angular/chordbox.html'
   	};
   });
 
   app.directive('addChord', function($compile, $document) {
     return {
       restrict: 'E',
-      templateUrl: '../angular/addChord.html',
+      templateUrl: '../angular/addchord.html',
       controller: function($scope, $compile) {
         $scope.add = function() {
           var el = $compile('<chord-box></chord-box>')($scope);
@@ -122,7 +114,7 @@ var loggedInUser = null;
   app.directive('playChord', function() {
     return {
       restrict: 'E',
-      templateUrl: '../angular/playChord.html',
+      templateUrl: '../angular/playchord.html',
       controller: function($scope) {
         $scope.playChord = function() {
           var chord = $scope.notes.split(' ');
@@ -137,15 +129,20 @@ var loggedInUser = null;
   app.directive('saveSong', function() {
     return {
       restrict: 'E',
-      templateUrl: '../angular/saveSong.html',
-      controller: function($scope, $http, $window) {
+      templateUrl: '../angular/savesong.html',
+      controller: function($scope, $http, $window, $compile) {
         $scope.saveSong = function() {
-          console.log(loggedInUser);
-          if (loggedInUser === null) {
-            $window.location.href = '/login';
+          console.log('$scope.loggedInUser: ' + $scope.loggedInUser);
+          if (!$scope.loggedInUser) {
+            var progression = angular.element(document.querySelector('#progression'));
+            console.log('progression: ', progression);
+            progression.detach();
+            var top = angular.element(document.querySelector('top-of-page'));
+            var el = $compile('<login></login>');
+            top.after(el);
           } else {
             var song = {
-              author: loggedInUser,
+              author: $scope.loggedInUser,
               name: 'my song',
               chords: [],
               tempo: 80
@@ -170,15 +167,56 @@ var loggedInUser = null;
     }
   });
 
-  app.directive('songModal', function() {
+  app.directive('songName', function() {
     return {
       restrict: 'E',
-      templateUrl: '../angular/songmodal.html',
-      controller: function($rootScope) {
-
+      templateUrl: '../angular/songname.html',
+      controller: function($scope) {
+        $scope.songName = 'Song Name';
+        $scope.addQuotes = function() {
+          if ($scope.songName.charAt(0) != '"' && $scope.songName.charAt(-1) != '"') {
+            $scope.songName = '"' + $scope.songName + '"';
+          }
+        }
+        $scope.stripQuotes = function() {
+          var str = $scope.songName;
+          $scope.songName = str.slice(1, str.length - 1);
+          console.log(str);
+        }
       }
     }
-  })
+  });
+
+  app.directive('userNav', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/usernav.html',
+      controller: function($scope) {
+        var progression = document.getElementById('progression');
+        var myInterface = document.getElementById('interface');
+        var loginForm = document.getElementsByTagName('login')[0];
+        // var signupForm = document.getElementByTagName('signup')[0];
+        console.log(loginForm);
+        $scope.showSignup = function() {
+          progression.style.display = 'none';
+          myInterface.style.display = 'none';
+          // signupForm.style.display = 'block';
+        }
+        $scope.showLogin = function() {
+          progression.style.display = 'none';
+          myInterface.style.display = 'none';
+          loginForm.style.display = 'block';
+        }
+      }
+    }
+  });
+
+  app.directive('login', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/login.html'
+    }
+  });
 
 })();
 
