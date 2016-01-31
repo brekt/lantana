@@ -24,16 +24,26 @@ header {
   width: 25%;
   margin: 0 auto;
   margin-left: 200px;
+  margin-top: 20px;
   border-radius: 2px;
   resize: none;
   border: none;
   height: 2em;
   color: #e40266;
-  background-color: #333333; }
+  background-color: #333333;
+  font-size: 1.25em; }
 
 .song-name:focus {
   outline: none;
   background-color: #666666; }
+
+.user-nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: #febe07;
+  font-size: 1em;
+  margin: 20px 0 0 20px;
+  float: right; }
 
 h2 {
   color: #e40266;
@@ -139,6 +149,9 @@ input.note-input {
   border-radius: 5px;
   background-color: #666666;
   font-size: 1.25em; }
+
+login {
+  display: none; }
 
 #login-form p {
   margin-bottom: 20px;

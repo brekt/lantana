@@ -65,10 +65,6 @@ var hotKeysOn = true;
     };
   });
 
-  app.factory('UserFactory', function() {
-
-  });
-
   app.directive('ngPlaceholder', function() {
     return {
       restrict: 'A',
@@ -188,6 +184,37 @@ var hotKeysOn = true;
           console.log(str);
         }
       }
+    }
+  });
+
+  app.directive('userNav', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/usernav.html',
+      controller: function($scope) {
+        var progression = document.getElementById('progression');
+        var myInterface = document.getElementById('interface');
+        var loginForm = document.getElementsByTagName('login')[0];
+        // var signupForm = document.getElementByTagName('signup')[0];
+        console.log(loginForm);
+        $scope.showSignup = function() {
+          progression.style.display = 'none';
+          myInterface.style.display = 'none';
+          // signupForm.style.display = 'block';
+        }
+        $scope.showLogin = function() {
+          progression.style.display = 'none';
+          myInterface.style.display = 'none';
+          loginForm.style.display = 'block';
+        }
+      }
+    }
+  });
+
+  app.directive('login', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/login.html'
     }
   });
 

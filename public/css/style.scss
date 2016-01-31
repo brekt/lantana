@@ -34,17 +34,28 @@ header {
   width: 25%;
   margin: 0 auto;
   margin-left: 200px;
+  margin-top: 20px;
   border-radius: 2px;
   resize: none;
   border: none;
   height: 2em;
   color: $magenta;
   background-color: $bodygray;
+  font-size: 1.25em;
 }
 
 .song-name:focus {
   outline: none;
   background-color: $inputgray;
+}
+
+.user-nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: $orange;
+  font-size: 1em;
+  margin: 20px 0 0 20px;
+  float: right;
 }
 
 h2 {
@@ -169,7 +180,8 @@ input.note-input {
   font-size: 1.25em;
 }
 
-#login-form {
+login {
+  display: none;
 }
 
 #login-form p {
