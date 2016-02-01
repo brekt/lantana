@@ -56,10 +56,13 @@ var hotKeysOn = true;
             var signupLink = document.getElementById('signup-link');
             var progression = document.getElementById('progression');
             var myInterface = document.getElementById('interface');
+            var profileLink = document.getElementById('profile-link');
             signupLink.style.display = 'none';
             loginForm.style.display = 'none';
             progression.style.display = 'block';
             myInterface.style.display = 'block';
+            profileLink.style.display = 'block';
+            profileLink.innerHTML = username;
           } else {
             var loginPassword = document.getElementById('password');
             $scope.password = '';
