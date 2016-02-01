@@ -1,64 +1,74 @@
 *, *:after, *:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 body {
   padding: 2%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #febe07;
-  background-color: #333333; }
+  background-color: #333333;
+}
 
 header {
-  margin: auto;
-  width: 80%; }
+  vertical-align: middle;
+}
 
 .page-title {
   color: #e40266;
   padding: 10px;
   margin: 0px;
-  display: inline-block; }
+  display: inline-block;
+}
 
 .song-name {
   text-align: center;
   width: 25%;
   margin: 0 auto;
+  padding: 10px;
   margin-left: 200px;
-  margin-top: 20px;
   border-radius: 2px;
+  overflow: hidden;
   resize: none;
   border: none;
   height: 2em;
   color: #e40266;
   background-color: #333333;
-  font-size: 1.25em; }
+  font-size: 1.25em;
+}
 
 .song-name:focus {
   outline: none;
-  background-color: #666666; }
+  background-color: #666666;
+}
 
 .user-nav a {
   display: inline-block;
   text-decoration: none;
   color: #febe07;
   font-size: 1em;
-  margin: 20px 0 0 20px;
-  float: right; }
+  float: right;
+  padding: 10px;
+}
 
 h2 {
   color: #e40266;
   padding: 10px;
-  margin: 0px; }
+  margin: 0px;
+}
 
 .hr {
   text-align: center;
   height: 2px;
   background-color: #e40266;
-  margin: 10px 0 30px 0; }
+  margin: 10px 0 30px 0;
+}
 
 #progression {
   float: left;
-  width: 60%; }
+  width: 60%;
+}
 
 .interface {
   width: 25%;
@@ -67,47 +77,56 @@ h2 {
   border-color: #e40266;
   border-radius: 10px;
   padding: 10px;
-  min-width: 128px; }
+  min-width: 128px;
+}
 
 .interface h2 {
   margin-left: 5px;
-  padding: 0px; }
+  padding: 0px;
+}
 
 .interface p {
-  margin-left: 5px; }
+  margin-left: 5px;
+}
 
 div.chord-wrapper {
   display: inline-block;
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+}
 
 div.chord {
   display: inline-block;
   padding: 20px 20px 10px 20px;
   border: solid #e40266 2px;
   border-radius: 10px;
-  margin: 5px; }
+  margin: 5px;
+}
 
 ul.notes-list {
   list-style-type: none;
   height: 100px;
-  position: relative; }
+  position: relative;
+}
 
 ul.notes-list li {
   position: relative;
   bottom: 0;
-  color: #00ff00; }
+  color: #00ff00;
+}
 
 input.note-input {
   border: 0px #444444 solid;
   border-radius: 2px;
   height: 2em;
-  background-color: #666666; }
+  background-color: #666666;
+}
 
 .play-buttons {
   text-align: center;
   color: #febe07;
   font-size: 0.9em;
-  margin-top: 4px; }
+  margin-top: 4px;
+}
 
 .play-buttons a {
   border: #febe07 solid 1px;
@@ -115,7 +134,8 @@ input.note-input {
   margin: 0px 4px 0px 4px;
   padding: 2px;
   position: relative;
-  bottom: 0px; }
+  bottom: 0px;
+}
 
 .add-chord {
   display: inline-block;
@@ -123,7 +143,8 @@ input.note-input {
   border-radius: 5px;
   padding: 2px;
   text-align: center;
-  margin-left: 5px; }
+  margin-left: 5px;
+}
 
 .save-song {
   display: inline-block;
@@ -131,14 +152,16 @@ input.note-input {
   border-radius: 5px;
   padding: 2px;
   text-align: center;
-  margin-left: 10px; }
+  margin-left: 10px;
+}
 
 .form-wrapper {
   border: solid 2px #e40266;
   border-radius: 20px;
   margin: auto;
   padding: 20px;
-  min-width: 66%; }
+  min-width: 66%;
+}
 
 .form-wrapper input {
   height: 30px;
@@ -148,25 +171,35 @@ input.note-input {
   border: 0px;
   border-radius: 5px;
   background-color: #666666;
-  font-size: 1.25em; }
+  font-size: 1.25em;
+}
 
 login {
-  display: none; }
+  display: none;
+}
 
 #login-form p {
   margin-bottom: 20px;
-  min-width: 75%; }
+  min-width: 75%;
+}
 
 #login-form label {
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 #login-form input {
   width: 60%;
-  vertical-align: top; }
+  vertical-align: top;
+}
+
+signup {
+  display: none;
+}
 
 #signup-form p {
   min-width: 600px;
-  padding: 10px 0 0 10px; }
+  padding: 10px 0 0 10px;
+}
 
 .submit-button {
   margin: 5% 0 0 47%;
@@ -176,6 +209,15 @@ login {
   padding: 0 20px 0 20px;
   background-color: #333333;
   font-size: 1.25em;
-  color: #00ff00; }
+  color: #00ff00;
+}
+
+#profile-link {
+  display: none;
+}
+
+profile {
+  display: none;
+}
 
 /*# sourceMappingURL=style.css.map */

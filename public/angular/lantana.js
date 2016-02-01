@@ -44,8 +44,6 @@ var hotKeysOn = true;
     $scope.phlogin = '';
     $scope.login = function(username, password, token) {
       var token = localStorage.getItem('LantanaToken');
-      $scope.loggedInUser = username;
-      console.log($scope.loggedInUser);
       console.log('token: ' + token);
       $http({
         method: 'POST',
@@ -54,7 +52,14 @@ var hotKeysOn = true;
       }).success(function(response) {
           if (response.loginStatus === 'success') {
             hotKeysOn = true;
-            $window.location.href = '/';
+            var loginForm = document.getElementsByTagName('login')[0];
+            var signupLink = document.getElementById('signup-link');
+            var progression = document.getElementById('progression');
+            var myInterface = document.getElementById('interface');
+            signupLink.style.display = 'none';
+            loginForm.style.display = 'none';
+            progression.style.display = 'block';
+            myInterface.style.display = 'block';
           } else {
             var loginPassword = document.getElementById('password');
             $scope.password = '';
@@ -195,19 +200,30 @@ var hotKeysOn = true;
         var progression = document.getElementById('progression');
         var myInterface = document.getElementById('interface');
         var loginForm = document.getElementsByTagName('login')[0];
-        // var signupForm = document.getElementByTagName('signup')[0];
-        console.log(loginForm);
+        var signupForm = document.getElementsByTagName('signup')[0];
+        var profileLink = document.getElementById('profile-link');
+        var loginLink = document.getElementById('login-link');
+        var signupLink = document.getElementById('signup-link');
         $scope.showSignup = function() {
           progression.style.display = 'none';
           myInterface.style.display = 'none';
-          // signupForm.style.display = 'block';
+          signupForm.style.display = 'block';
+          signupLink.style.display = 'none';
         }
         $scope.showLogin = function() {
           progression.style.display = 'none';
           myInterface.style.display = 'none';
           loginForm.style.display = 'block';
+          loginLink.style.display = 'none';
         }
       }
+    }
+  });
+
+  app.directive('profile', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/profile.html'
     }
   });
 
@@ -215,6 +231,13 @@ var hotKeysOn = true;
     return {
       restrict: 'E',
       templateUrl: '../angular/login.html'
+    }
+  });
+
+  app.directive('signup', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '../angular/signup.html'
     }
   });
 
@@ -234,16 +257,19 @@ window.onkeyup = function(event) {
     var noteArray = chordString.split(' ');
     soundChord(noteArray[0], noteArray[1], noteArray[2]);
     chordCounter++;
-    // then play the the other chords at tempo
-    var delay = 2000;
-    var playIntervalID = window.setInterval(playChords, delay);
+    if (howManyChords > 1) {
+      // then play the the other chords at tempo
+      var delay = 2000;
+      var playIntervalId = window.setInterval(playChords, delay);
+    }
     function playChords() {
+      console.log(howManyChords, chordCounter);
       var chordString = chordInputs[chordCounter]['value'];
       var noteArray = chordString.split(' ');
       soundChord(noteArray[0], noteArray[1], noteArray[2]);
       chordCounter++;
       if (chordCounter === howManyChords) {
-        clearInterval(playIntervalID);
+        clearInterval(playIntervalId);
       }
     }
   }
