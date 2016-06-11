@@ -39,7 +39,7 @@ app.controller('LoginController', function($scope, $http) {
     username = username.toLowerCase();
     $http({
       method: 'POST',
-      url: 'api/authenticate',
+      url: 'api/login',
       data: {username: username, password: password},
     }).success(function(data) {
         console.log(data);

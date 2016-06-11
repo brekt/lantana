@@ -48,7 +48,7 @@ var hotKeysOn = true;
       $http({
         method: 'POST',
         url: 'api/login',
-        data: {username: username, password: password, token: token},
+        data: {username: username, password: password, token: token}
       }).success(function(response) {
           if (response.loginStatus === 'success') {
             hotKeysOn = true;
@@ -66,7 +66,7 @@ var hotKeysOn = true;
           } else {
             var loginPassword = document.getElementById('password');
             $scope.password = '';
-            $scope.phlogin = data.loginStatus;
+            $scope.phlogin = response.loginStatus;
             $scope.loggedInUser = null;
           }
       });
