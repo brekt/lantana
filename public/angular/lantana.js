@@ -41,34 +41,50 @@ var hotKeysOn = true;
   });
 
   app.controller('LoginController', function($scope, $http, $window) {
-    $scope.phlogin = '';
+    $scope.phLoginPassword = '';
+    $scope.phLoginUsername = '';
     $scope.login = function(username, password, token) {
       var token = localStorage.getItem('LantanaToken');
       console.log('token: ' + token);
+      console.log('username: ' + username);
+      console.log('password: ' + password);
       $http({
         method: 'POST',
-        url: 'api/login',
-        data: {username: username, password: password, token: token}
+        url: 'api/doesuserexist',
+        data: {username: username}
       }).success(function(response) {
-          if (response.loginStatus === 'success') {
-            hotKeysOn = true;
-            var loginForm = document.getElementsByTagName('login')[0];
-            var signupLink = document.getElementById('signup-link');
-            var progression = document.getElementById('progression');
-            var myInterface = document.getElementById('interface');
-            var profileLink = document.getElementById('profile-link');
-            signupLink.style.display = 'none';
-            loginForm.style.display = 'none';
-            progression.style.display = 'block';
-            myInterface.style.display = 'block';
-            profileLink.style.display = 'block';
-            profileLink.innerHTML = username;
-          } else {
-            var loginPassword = document.getElementById('password');
-            $scope.password = '';
-            $scope.phlogin = response.loginStatus;
-            $scope.loggedInUser = null;
-          }
+        console.log(response);
+        if (response === false) {
+          $scope.loginUsername = '';
+          $scope.loginPassword = '';
+          $scope.phLoginUsername = 'Please signup.';
+        } else {
+          $http({
+            method: 'POST',
+            url: 'api/login',
+            data: {username: username, password: password, token: token}
+          }).success(function(response) {
+              if (response.loginStatus === 'success') {
+                hotKeysOn = true;
+                var loginForm = document.getElementsByTagName('login')[0];
+                var signupLink = document.getElementById('signup-link');
+                var progression = document.getElementById('progression');
+                var myInterface = document.getElementById('interface');
+                var profileLink = document.getElementById('profile-link');
+                signupLink.style.display = 'none';
+                loginForm.style.display = 'none';
+                progression.style.display = 'block';
+                myInterface.style.display = 'block';
+                profileLink.style.display = 'block';
+                profileLink.innerHTML = username;
+              } else {
+                var loginPassword = document.getElementById('password');
+                $scope.loginPassword = '';
+                $scope.phLoginPassword = response.loginStatus;
+                $scope.loggedInUser = null;
+              }
+          });
+        }
       });
     };
   });
@@ -83,7 +99,7 @@ var hotKeysOn = true;
       link: function(scope, elem, attr) {
         scope.$watch('placeholder', function() {
           elem[0].placeholder = scope.placeholder;
-        })
+        });
       }
     };
   });
@@ -212,6 +228,7 @@ var hotKeysOn = true;
           myInterface.style.display = 'none';
           signupForm.style.display = 'block';
           signupLink.style.display = 'none';
+          loginForm.style.display = 'none';
         }
         $scope.showLogin = function() {
           progression.style.display = 'none';

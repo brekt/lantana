@@ -46,25 +46,29 @@ app.post('/api/login', function(req, res, next) {
     if (err) {
       throw err;
     }
-    bcrypt.compare(req.body.password, document.password, function(err, match) {
-      if (err) {
-        throw err;
-      } else if (match === true) {
-        var clientToken = req.body.token;
-        jwt.verify(clientToken, jwtKey, function(err, decoded) {
-          if (err) {
-            throw err;
-          } else {
-            console.log('Decoded token: ' + decoded);
-            res.json({"loginStatus" : "success"});
-          }
-        });
-      } else if (match === false) {
-        res.json({"loginStatus" : "Password is incorrect."});
-      } else {
-        res.json({"loginStatus" : "An unknown error occured."});
-      }
-    });
+    if (document === null) {
+      res.end('No such user.');
+    } else {
+      bcrypt.compare(req.body.password, document.password, function(err, match) {
+        if (err) {
+          throw err;
+        } else if (match === true) {
+          var clientToken = req.body.token;
+          jwt.verify(clientToken, jwtKey, function(err, decoded) {
+            if (err) {
+              throw err;
+            } else {
+              console.log('Decoded token: ' + decoded);
+              res.json({"loginStatus" : "success"});
+            }
+          });
+        } else if (match === false) {
+          res.json({"loginStatus" : "Password is incorrect."});
+        } else {
+          res.json({"loginStatus" : "An unknown error occured."});
+        }
+      });
+    }
   });
 });
 
@@ -75,14 +79,15 @@ app.get('/signup', function(req, res) {
 app.post('/api/doesuserexist', function(req, res) {
   console.log(req.body.username);
   var userToCheck = req.body.username;
+  var userExists;
   db.collection('users').find({'username': userToCheck}).toArray(function(err, docs) {
     if (err) throw err;
     if (docs.length > 0) {
-      var userExists = true;
+      userExists = true;
       res.json(userExists);
     }
     else {
-      var userExists = false;
+      userExists = false;
       res.json(userExists);
     }
   });
